@@ -60,13 +60,29 @@ const LUXURY_SLIDES = [
 
 function LuxuryBanner() {
   const [current, setCurrent] = useState(0);
+  const [slides, setSlides] = useState(LUXURY_SLIDES);
+
+  useEffect(() => {
+    // Fetch Banner 5 settings
+    fetch('/api/settings')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (data?.banner5_visible && data?.banner5_image) {
+          setSlides([
+            ...LUXURY_SLIDES,
+            { image: data.banner5_image, title: '', subtitle: '' }
+          ]);
+        }
+      })
+      .catch(() => { });
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % LUXURY_SLIDES.length);
+      setCurrent((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
 
   return (
     <div className="relative h-[400px] lg:h-[600px] rounded-[40px] overflow-hidden group">
@@ -81,34 +97,36 @@ function LuxuryBanner() {
         >
           <div className="absolute inset-0 bg-black/40 z-10" />
           <img
-            src={LUXURY_SLIDES[current].image}
-            alt={LUXURY_SLIDES[current].title}
+            src={slides[current].image}
+            alt={slides[current].title}
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center text-white p-6">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-4xl lg:text-7xl font-black mb-4 drop-shadow-2xl"
-            >
-              {LUXURY_SLIDES[current].title}
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="text-xl lg:text-3xl font-bold opacity-90 tracking-widest"
-            >
-              {LUXURY_SLIDES[current].subtitle}
-            </motion.p>
-          </div>
+          {(slides[current].title || slides[current].subtitle) && (
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center text-white p-6">
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="text-4xl lg:text-7xl font-black mb-4 drop-shadow-2xl"
+              >
+                {slides[current].title}
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="text-xl lg:text-3xl font-bold opacity-90 tracking-widest"
+              >
+                {slides[current].subtitle}
+              </motion.p>
+            </div>
+          )}
         </motion.div>
       </AnimatePresence>
 
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-3">
-        {LUXURY_SLIDES.map((_, idx) => (
+        {slides.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrent(idx)}

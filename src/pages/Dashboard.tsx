@@ -24,7 +24,12 @@ import {
   Save,
   X,
   Lock,
-  User
+  User,
+  Copy,
+  Link as LinkIcon,
+  Upload,
+  Settings,
+  Megaphone
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { Property } from '../types';
@@ -65,15 +70,23 @@ export default function Dashboard() {
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedId, setExpandedId] = useState<number | null>(null);
-  const [activeTab, setActiveTab] = useState<'submissions' | 'properties'>('submissions');
+  const [activeTab, setActiveTab] = useState<'submissions' | 'properties' | 'banner'>('submissions');
   const [editingProperty, setEditingProperty] = useState<Property | null>(null);
   const [isAddingProperty, setIsAddingProperty] = useState(false);
+  const [propertyImages, setPropertyImages] = useState<string[]>([]);
+  const [newImageUrl, setNewImageUrl] = useState('');
+  const [uploading, setUploading] = useState(false);
+  // Banner 5 state
+  const [banner5Visible, setBanner5Visible] = useState(false);
+  const [banner5Image, setBanner5Image] = useState('');
+  const [bannerSaving, setBannerSaving] = useState(false);
 
   useEffect(() => {
     // Always fetch properties (public)
     fetchProperties();
     if (isLoggedIn) {
       fetchSubmissions();
+      fetchBannerSettings();
     } else {
       setLoading(false);
     }
@@ -129,6 +142,59 @@ export default function Dashboard() {
     }
   };
 
+  const fetchBannerSettings = async () => {
+    try {
+      const response = await fetch('/api/settings');
+      if (response.ok) {
+        const data = await response.json();
+        setBanner5Visible(data.banner5_visible || false);
+        setBanner5Image(data.banner5_image || '');
+      }
+    } catch (error) {
+      console.error('Error fetching settings:', error);
+    }
+  };
+
+  const handleSaveBanner = async () => {
+    setBannerSaving(true);
+    try {
+      await fetch('/api/settings', {
+        method: 'PUT',
+        headers: secureHeaders(),
+        body: JSON.stringify({ banner5_visible: banner5Visible, banner5_image: banner5Image }),
+      });
+    } catch (error) {
+      console.error('Error saving banner:', error);
+    } finally {
+      setBannerSaving(false);
+    }
+  };
+
+  const handleBannerImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64 = reader.result as string;
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          headers: secureHeaders(),
+          body: JSON.stringify({ file: base64, fileName: file.name }),
+        });
+        if (response.ok) {
+          const { url } = await response.json();
+          setBanner5Image(url);
+        }
+        setUploading(false);
+      };
+      reader.readAsDataURL(file);
+    } catch {
+      setUploading(false);
+    }
+  };
+
   const handleSaveProperty = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -145,7 +211,8 @@ export default function Dashboard() {
       area: Number(formData.get('area')),
       description: formData.get('description') as string,
       features: (formData.get('features') as string).split(',').map(f => f.trim()).filter(f => f),
-      image: editingProperty?.image || 'https://picsum.photos/seed/new/800/600',
+      image: propertyImages.length > 0 ? propertyImages[0] : (editingProperty?.image || 'https://picsum.photos/seed/new/800/600'),
+      images: propertyImages,
       showPrice: formData.get('showPrice') === 'on',
       propertyNumber: formData.get('propertyNumber') as string,
       licenseNumber: formData.get('licenseNumber') as string,
@@ -163,10 +230,83 @@ export default function Dashboard() {
         await fetchProperties();
         setEditingProperty(null);
         setIsAddingProperty(false);
+        setPropertyImages([]);
+        setNewImageUrl('');
       }
     } catch (error) {
       console.error('Error saving property:', error);
     }
+  };
+
+  const handleAddImage = () => {
+    const url = newImageUrl.trim();
+    if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+      setPropertyImages(prev => [...prev, url]);
+      setNewImageUrl('');
+    }
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    setUploading(true);
+    try {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        await new Promise<void>((resolve) => {
+          reader.onload = async () => {
+            const base64 = reader.result as string;
+            const response = await fetch('/api/upload', {
+              method: 'POST',
+              headers: secureHeaders(),
+              body: JSON.stringify({ file: base64, fileName: file.name }),
+            });
+            if (response.ok) {
+              const { url } = await response.json();
+              setPropertyImages(prev => [...prev, url]);
+            }
+            resolve();
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+    } finally {
+      setUploading(false);
+      e.target.value = '';
+    }
+  };
+
+  const handleRemoveImage = (index: number) => {
+    setPropertyImages(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleDuplicateProperty = (property: Property) => {
+    const duplicated = {
+      ...property,
+      id: undefined as any,
+      title: property.title + ' (نسخة)',
+    };
+    setEditingProperty(null);
+    setIsAddingProperty(true);
+    setPropertyImages((property as any).images || (property.image ? [property.image] : []));
+    // Use setTimeout to let the form render first
+    setTimeout(() => {
+      setEditingProperty(duplicated);
+    }, 50);
+  };
+
+  const handleStartEdit = (property: Property) => {
+    setEditingProperty(property);
+    setPropertyImages((property as any).images || (property.image ? [property.image] : []));
+  };
+
+  const handleStartAdd = () => {
+    setIsAddingProperty(true);
+    setPropertyImages([]);
+    setNewImageUrl('');
   };
 
   const handleDeleteProperty = async (id: string) => {
@@ -267,30 +407,24 @@ export default function Dashboard() {
           </div>
 
           <div className="flex bg-white p-1 rounded-2xl shadow-sm border border-slate-100">
-            <button
-              onClick={() => setActiveTab('submissions')}
-              className={cn(
-                "px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2",
-                activeTab === 'submissions' ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200" : "text-slate-500 hover:bg-slate-50"
-              )}
-            >
-              <Users size={18} />
-              الطلبات
-            </button>
-            <button
-              onClick={() => setActiveTab('properties')}
-              className={cn(
-                "px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2",
-                activeTab === 'properties' ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200" : "text-slate-500 hover:bg-slate-50"
-              )}
-            >
-              <Home size={18} />
-              العقارات
-            </button>
+            {['submissions', 'properties', 'banner'].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab as any)}
+                className={cn(
+                  "px-4 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all whitespace-nowrap",
+                  activeTab === tab
+                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200"
+                    : "text-slate-500 hover:bg-slate-50"
+                )}
+              >
+                {tab === 'submissions' ? `الطلبات (${submissions.length})` : tab === 'properties' ? `العقارات (${properties.length})` : 'الإعلانات'}
+              </button>
+            ))}
           </div>
         </div>
 
-        {activeTab === 'submissions' ? (
+        {activeTab === 'submissions' && (
           <div className="space-y-4">
             {submissions.map((sub) => (
               <div
@@ -423,12 +557,14 @@ export default function Dashboard() {
               </div>
             )}
           </div>
-        ) : (
+        )}
+
+        {activeTab === 'properties' && (
           <div className="space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-bold text-slate-900">إدارة العقارات</h2>
               <button
-                onClick={() => setIsAddingProperty(true)}
+                onClick={handleStartAdd}
                 className="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200"
               >
                 <Plus size={20} />
@@ -467,14 +603,23 @@ export default function Dashboard() {
                       </div>
                       <div className="flex gap-2">
                         <button
-                          onClick={() => setEditingProperty(property)}
+                          onClick={() => handleStartEdit(property)}
                           className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"
+                          title="تعديل"
                         >
                           <Edit2 size={18} />
                         </button>
                         <button
+                          onClick={() => handleDuplicateProperty(property)}
+                          className="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all"
+                          title="تكرار"
+                        >
+                          <Copy size={18} />
+                        </button>
+                        <button
                           onClick={() => handleDeleteProperty(property.id)}
                           className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
+                          title="حذف"
                         >
                           <Trash2 size={18} />
                         </button>
@@ -483,6 +628,75 @@ export default function Dashboard() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'banner' && (
+          <div className="space-y-6">
+            <div className="bg-white rounded-[40px] p-8 md:p-12 border border-slate-100 shadow-sm">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center">
+                  <Megaphone size={24} />
+                </div>
+                <div>
+                  <h2 className="text-xl font-black text-slate-900">إدارة البنر الإعلاني</h2>
+                  <p className="text-sm text-slate-500">بنر رقم 5 - يظهر في السلايدر الرئيسي</p>
+                </div>
+              </div>
+
+              <div className="space-y-8">
+                {/* Toggle */}
+                <div className="flex items-center justify-between p-6 bg-slate-50 rounded-3xl">
+                  <div>
+                    <h3 className="font-bold text-slate-900">حالة البنر</h3>
+                    <p className="text-sm text-slate-500 mt-1">{banner5Visible ? 'البنر ظاهر للزوار' : 'البنر مخفي'}</p>
+                  </div>
+                  <button
+                    onClick={() => setBanner5Visible(!banner5Visible)}
+                    className={cn(
+                      "relative w-16 h-8 rounded-full transition-all",
+                      banner5Visible ? "bg-indigo-600" : "bg-slate-300"
+                    )}
+                  >
+                    <span className={cn(
+                      "absolute top-1 w-6 h-6 bg-white rounded-full transition-all shadow",
+                      banner5Visible ? "right-1" : "left-1"
+                    )} />
+                  </button>
+                </div>
+
+                {/* Image */}
+                <div className="space-y-4">
+                  <label className="text-sm font-bold text-slate-700">صورة البنر</label>
+                  {banner5Image && (
+                    <div className="aspect-[3/1] rounded-3xl overflow-hidden border border-slate-200">
+                      <img src={banner5Image} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    </div>
+                  )}
+                  <label className="flex items-center justify-center gap-3 px-6 py-4 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl cursor-pointer hover:bg-slate-100 hover:border-indigo-300 transition-all">
+                    <Upload size={20} className="text-slate-400" />
+                    <span className="font-bold text-slate-500">{uploading ? 'جاري الرفع...' : 'رفع صورة البنر'}</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleBannerImageUpload}
+                      disabled={uploading}
+                    />
+                  </label>
+                </div>
+
+                {/* Save */}
+                <button
+                  onClick={handleSaveBanner}
+                  disabled={bannerSaving}
+                  className="w-full py-4 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2 disabled:opacity-50"
+                >
+                  <Save size={20} />
+                  {bannerSaving ? 'جاري الحفظ...' : 'حفظ الإعدادات'}
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -657,19 +871,36 @@ export default function Dashboard() {
 
                 <div className="space-y-4">
                   <label className="text-sm font-bold text-slate-700">صور العقار</label>
+                  <label className="flex items-center justify-center gap-3 px-6 py-4 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl cursor-pointer hover:bg-slate-100 hover:border-indigo-300 transition-all mb-4">
+                    <Upload size={20} className="text-slate-400" />
+                    <span className="font-bold text-slate-500">{uploading ? 'جاري الرفع...' : 'رفع صور من الجهاز'}</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      className="hidden"
+                      onChange={handleFileUpload}
+                      disabled={uploading}
+                    />
+                  </label>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="aspect-square bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center text-slate-400 hover:bg-slate-100 hover:border-indigo-300 transition-all cursor-pointer group">
-                      <Plus size={32} className="group-hover:text-indigo-500 transition-all" />
-                      <span className="text-xs font-bold mt-2">رفع صورة</span>
-                    </div>
-                    {editingProperty?.image && (
-                      <div className="aspect-square relative rounded-3xl overflow-hidden group">
-                        <img src={editingProperty.image} className="w-full h-full object-cover" />
+                    {propertyImages.map((img, index) => (
+                      <div key={index} className="aspect-square relative rounded-3xl overflow-hidden group">
+                        <img src={img} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
-                          <button type="button" className="p-2 bg-red-500 text-white rounded-xl">
+                          <button type="button" onClick={() => handleRemoveImage(index)} className="p-2 bg-red-500 text-white rounded-xl">
                             <Trash2 size={16} />
                           </button>
                         </div>
+                        {index === 0 && (
+                          <span className="absolute top-2 right-2 px-2 py-1 bg-indigo-600 text-white text-xs rounded-lg font-bold">رئيسية</span>
+                        )}
+                      </div>
+                    ))}
+                    {propertyImages.length === 0 && (
+                      <div className="aspect-square bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center text-slate-400">
+                        <ImageIcon size={32} className="text-slate-300" />
+                        <span className="text-xs font-bold mt-2 text-center px-2">ارفع صور من الجهاز</span>
                       </div>
                     )}
                   </div>
