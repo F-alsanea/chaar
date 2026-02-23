@@ -429,7 +429,7 @@ function HomePage() {
                 onClick={() => setFilter('all')}
                 className={cn(
                   "px-6 py-2.5 rounded-xl font-bold transition-all",
-                  filter === 'all' ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700"
+                  filter === 'all' ? "bg-indigo-600 dark:bg-indigo-500 text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700"
                 )}
               >
                 الكل
@@ -578,16 +578,16 @@ function HomePage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-24 bg-slate-900 dark:bg-slate-950 text-white overflow-hidden relative transition-colors">
+      <section className="py-24 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white overflow-hidden relative transition-colors">
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
-          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500 dark:bg-indigo-600 blur-[120px] rounded-full" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-emerald-500 dark:bg-emerald-600 blur-[120px] rounded-full" />
+          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-200 dark:bg-indigo-600 blur-[120px] rounded-full" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-emerald-200 dark:bg-emerald-600 blur-[120px] rounded-full" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-black mb-6">آراء عملائنا</h2>
-            <p className="text-slate-400 dark:text-slate-500 text-lg">نفخر بثقة عملائنا ونسعى دائماً لتقديم الأفضل</p>
+            <p className="text-slate-500 dark:text-slate-400 text-lg">نفخر بثقة عملائنا ونسعى دائماً لتقديم الأفضل</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -614,7 +614,7 @@ function HomePage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="p-8 bg-slate-800/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-[32px] border border-slate-700 dark:border-slate-800 relative group hover:bg-slate-800 dark:hover:bg-slate-800/80 transition-all"
+                className="p-8 bg-white dark:bg-slate-900/50 backdrop-blur-sm rounded-[32px] border border-slate-200 dark:border-slate-800 relative group hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all shadow-sm"
               >
                 <Quote className="absolute top-6 left-6 text-indigo-500/20 group-hover:text-indigo-500/40 transition-colors" size={48} />
 
@@ -624,17 +624,17 @@ function HomePage() {
                   ))}
                 </div>
 
-                <p className="text-lg text-slate-300 dark:text-slate-400 leading-relaxed mb-8 italic">
+                <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8 italic">
                   "{testimonial.text}"
                 </p>
 
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-indigo-600 dark:bg-indigo-500 rounded-full flex items-center justify-center font-bold text-xl">
+                  <div className="w-12 h-12 bg-indigo-600 dark:bg-indigo-500 rounded-full flex items-center justify-center font-bold text-xl text-white">
                     {testimonial.name.charAt(0)}
                   </div>
                   <div>
-                    <h4 className="font-bold text-white">{testimonial.name}</h4>
-                    <p className="text-sm text-slate-500 dark:text-slate-600">{testimonial.role}</p>
+                    <h4 className="font-bold text-slate-900 dark:text-white">{testimonial.name}</h4>
+                    <p className="text-sm text-slate-400 dark:text-slate-500">{testimonial.role}</p>
                   </div>
                 </div>
               </motion.div>
@@ -821,7 +821,7 @@ function Layout({ children }: { children: React.ReactNode }) {
       {children}
 
       {/* Footer */}
-      <footer className="bg-slate-900 dark:bg-slate-950 text-white pt-20 pb-10 border-t border-slate-800/50">
+      <footer className="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white pt-20 pb-10 border-t border-slate-200 dark:border-slate-800/50 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             <div className="space-y-6">
@@ -836,17 +836,17 @@ function Layout({ children }: { children: React.ReactNode }) {
                 </div>
                 <span className="text-2xl font-black tracking-tight">شعار العقارية</span>
               </div>
-              <p className="text-slate-400 dark:text-slate-500 leading-relaxed">
+              <p className="text-slate-500 dark:text-slate-400 leading-relaxed">
                 شعار العقارية, معتمدة من الهيئة العامة للعقار, تقدم مجموعة متكاملة من الخدمات العقارية مقّرهــا في مدينــة جــدة.
               </p>
-              <div className="space-y-3 text-slate-400 dark:text-slate-500 text-sm">
+              <div className="space-y-3 text-slate-500 dark:text-slate-400 text-sm">
                 <div className="flex items-center gap-3">
                   <Phone size={18} className="text-indigo-500" />
-                  <a href="tel:0544137950" className="hover:text-white transition-colors">0544137950</a>
+                  <a href="tel:0544137950" className="hover:text-indigo-600 dark:hover:text-white transition-colors">0544137950</a>
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail size={18} className="text-indigo-500" />
-                  <a href="mailto:Nadabroker@aol.com" className="hover:text-white transition-colors">Nadabroker@aol.com</a>
+                  <a href="mailto:Nadabroker@aol.com" className="hover:text-indigo-600 dark:hover:text-white transition-colors">Nadabroker@aol.com</a>
                 </div>
                 <div className="flex items-center gap-3">
                   <MapPin size={18} className="text-indigo-500" />
@@ -854,22 +854,22 @@ function Layout({ children }: { children: React.ReactNode }) {
                 </div>
               </div>
               <div className="flex gap-4">
-                <a href="https://twitter.com/nadabrokersa" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 dark:bg-slate-900 flex items-center justify-center hover:bg-indigo-600 transition-all shadow-sm"><Twitter size={20} /></a>
-                <a href="https://www.tiktok.com/@nadabrokersa" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 dark:bg-slate-900 flex items-center justify-center hover:bg-indigo-600 transition-all shadow-sm"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" /></svg></a>
-                <a href="https://instagram.com/nadabrokersa" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 dark:bg-slate-900 flex items-center justify-center hover:bg-indigo-600 transition-all shadow-sm"><Instagram size={20} /></a>
+                <a href="https://twitter.com/nadabrokersa" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-white flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all shadow-sm"><Twitter size={20} /></a>
+                <a href="https://www.tiktok.com/@nadabrokersa" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-white flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all shadow-sm"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" /></svg></a>
+                <a href="https://instagram.com/nadabrokersa" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-white flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all shadow-sm"><Instagram size={20} /></a>
               </div>
             </div>
 
             <div>
               <h4 className="text-lg font-bold mb-6">روابط سريعة</h4>
-              <ul className="space-y-4 text-slate-400 dark:text-slate-500">
-                <li><Link to="/about-us" className="hover:text-white transition-colors">من نحن</Link></li>
-                <li><Link to="/privacy-policy" onClick={() => window.scrollTo(0, 0)} className="hover:text-white transition-colors">سياسة الخصوصية</Link></li>
-                <li><Link to="/?type=sale&category=apartment" onClick={() => window.scrollTo(0, 0)} className="hover:text-white transition-colors">شقق للبيع</Link></li>
-                <li><Link to="/?type=sale&category=villa" onClick={() => window.scrollTo(0, 0)} className="hover:text-white transition-colors">فلل للبيع</Link></li>
-                <li className="text-white font-bold mt-4 mb-2">اتصل بنا</li>
+              <ul className="space-y-4 text-slate-500 dark:text-slate-400">
+                <li><Link to="/about-us" className="hover:text-indigo-600 dark:hover:text-white transition-colors">من نحن</Link></li>
+                <li><Link to="/privacy-policy" onClick={() => window.scrollTo(0, 0)} className="hover:text-indigo-600 dark:hover:text-white transition-colors">سياسة الخصوصية</Link></li>
+                <li><Link to="/?type=sale&category=apartment" onClick={() => window.scrollTo(0, 0)} className="hover:text-indigo-600 dark:hover:text-white transition-colors">شقق للبيع</Link></li>
+                <li><Link to="/?type=sale&category=villa" onClick={() => window.scrollTo(0, 0)} className="hover:text-indigo-600 dark:hover:text-white transition-colors">فلل للبيع</Link></li>
+                <li className="text-slate-900 dark:text-white font-bold mt-4 mb-2">اتصل بنا</li>
                 <li>
-                  <a href="tel:0544137950" className="flex items-center gap-3 hover:text-white transition-colors">
+                  <a href="tel:0544137950" className="flex items-center gap-3 hover:text-indigo-600 dark:hover:text-white transition-colors">
                     <Phone size={18} className="text-indigo-500" />
                     <span>0544137950</span>
                   </a>
@@ -879,7 +879,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 
             <div className="lg:col-span-2">
               <h4 className="text-lg font-bold mb-6">معلومات قانونية</h4>
-              <div className="space-y-4 text-slate-400 dark:text-slate-500 text-sm">
+              <div className="space-y-4 text-slate-500 dark:text-slate-400 text-sm">
                 <p>رخصة فال رقم: 1200027299</p>
                 <p>سجل تجاري: ٤٠٣٠٥٥٧٥٩٣</p>
                 <p>الهيئة العامة للعقار</p>
@@ -887,7 +887,7 @@ function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
 
-          <div className="pt-10 border-t border-slate-800/50 text-center text-slate-500 text-sm">
+          <div className="pt-10 border-t border-slate-200 dark:border-slate-800/50 text-center text-slate-400 dark:text-slate-500 text-sm">
             <p>© {new Date().getFullYear()} جميع الحقوق محفوظة لشركة شعار العقارية</p>
           </div>
         </div>

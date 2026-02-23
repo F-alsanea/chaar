@@ -6,10 +6,10 @@ export default function AboutUs() {
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 bg-slate-900 dark:bg-slate-950 text-white overflow-hidden transition-colors">
+      <section className="relative py-24 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white overflow-hidden transition-colors">
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600 dark:bg-indigo-700 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-600 dark:bg-emerald-700 blur-[120px] rounded-full translate-y-1/2 -translate-x-1/2" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-200 dark:bg-indigo-700 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-200 dark:bg-emerald-700 blur-[120px] rounded-full translate-y-1/2 -translate-x-1/2" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
@@ -24,7 +24,7 @@ export default function AboutUs() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-slate-400 dark:text-slate-500 max-w-3xl mx-auto leading-relaxed"
+            className="text-xl text-slate-500 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed"
           >
             شعار العقارية.. شريكك الموثوق في رحلة البحث عن التميز العقاري
           </motion.p>
