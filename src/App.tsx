@@ -578,16 +578,16 @@ function HomePage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-24 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white overflow-hidden relative transition-colors">
+      <section className="py-24 bg-slate-900 dark:bg-slate-950 text-white overflow-hidden relative transition-colors">
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
-          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-200 dark:bg-indigo-600 blur-[120px] rounded-full" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-emerald-200 dark:bg-emerald-600 blur-[120px] rounded-full" />
+          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500 dark:bg-indigo-600 blur-[120px] rounded-full" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-emerald-500 dark:bg-emerald-600 blur-[120px] rounded-full" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-black mb-6">آراء عملائنا</h2>
-            <p className="text-slate-500 dark:text-slate-400 text-lg">نفخر بثقة عملائنا ونسعى دائماً لتقديم الأفضل</p>
+            <p className="text-slate-400 text-lg">نفخر بثقة عملائنا ونسعى دائماً لتقديم الأفضل</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -614,7 +614,7 @@ function HomePage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="p-8 bg-white dark:bg-slate-900/50 backdrop-blur-sm rounded-[32px] border border-slate-200 dark:border-slate-800 relative group hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all shadow-sm"
+                className="p-8 bg-slate-800/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-[32px] border border-slate-700/50 dark:border-slate-800 relative group hover:bg-slate-800 dark:hover:bg-slate-800/80 transition-all"
               >
                 <Quote className="absolute top-6 left-6 text-indigo-500/20 group-hover:text-indigo-500/40 transition-colors" size={48} />
 
@@ -624,7 +624,7 @@ function HomePage() {
                   ))}
                 </div>
 
-                <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8 italic">
+                <p className="text-lg text-slate-300 dark:text-slate-400 leading-relaxed mb-8 italic">
                   "{testimonial.text}"
                 </p>
 
@@ -633,8 +633,8 @@ function HomePage() {
                     {testimonial.name.charAt(0)}
                   </div>
                   <div>
-                    <h4 className="font-bold text-slate-900 dark:text-white">{testimonial.name}</h4>
-                    <p className="text-sm text-slate-400 dark:text-slate-500">{testimonial.role}</p>
+                    <h4 className="font-bold">{testimonial.name}</h4>
+                    <p className="text-sm text-slate-500">{testimonial.role}</p>
                   </div>
                 </div>
               </motion.div>
