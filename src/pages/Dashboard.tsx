@@ -1,0 +1,701 @@
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import {
+  Users,
+  Calendar,
+  Phone,
+  Mail,
+  Home,
+  DollarSign,
+  MapPin,
+  CheckCircle2,
+  Clock,
+  ChevronDown,
+  ChevronUp,
+  Briefcase,
+  Wallet,
+  MessageSquare,
+  Plus,
+  Trash2,
+  Edit2,
+  Image as ImageIcon,
+  Eye,
+  EyeOff,
+  Save,
+  X,
+  Lock,
+  User
+} from 'lucide-react';
+import { cn } from '../lib/utils';
+import { Property } from '../types';
+
+/** Helper to add CSRF headers */
+function secureHeaders(): Record<string, string> {
+  return { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' };
+}
+
+interface Submission {
+  id: number;
+  name: string;
+  email: string;
+  employer: string;
+  job_title: string;
+  age: number;
+  phone: string;
+  has_joint_applicants: number;
+  joint_applicant_income: number;
+  property_type: string;
+  property_value: number;
+  district: string;
+  city: string;
+  area: number;
+  monthly_income: number;
+  has_obligations: number;
+  obligation_amount: number;
+  has_down_payment: number;
+  down_payment_amount: number;
+  contact_method: string;
+  created_at: string;
+}
+
+export default function Dashboard() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loginError, setLoginError] = useState('');
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [activeTab, setActiveTab] = useState<'submissions' | 'properties'>('submissions');
+  const [editingProperty, setEditingProperty] = useState<Property | null>(null);
+  const [isAddingProperty, setIsAddingProperty] = useState(false);
+
+  useEffect(() => {
+    // Always fetch properties (public)
+    fetchProperties();
+    if (isLoggedIn) {
+      fetchSubmissions();
+    } else {
+      setLoading(false);
+    }
+  }, [isLoggedIn]);
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const username = formData.get('username') as string;
+    const password = formData.get('password') as string;
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: secureHeaders(),
+        body: JSON.stringify({ username, password }),
+      });
+      if (response.ok) {
+        setIsLoggedIn(true);
+        setLoginError('');
+        setLoading(true);
+      } else {
+        const data = await response.json();
+        setLoginError(data.error || 'اسم المستخدم أو كلمة المرور غير صحيحة');
+      }
+    } catch {
+      setLoginError('حدث خطأ في الاتصال بالخادم');
+    }
+  };
+
+  const fetchSubmissions = async () => {
+    try {
+      const response = await fetch('/api/submissions', { headers: secureHeaders() });
+      if (response.ok) {
+        const data = await response.json();
+        setSubmissions(data);
+      }
+    } catch (error) {
+      console.error('Error fetching submissions:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchProperties = async () => {
+    try {
+      const response = await fetch('/api/properties');
+      if (response.ok) {
+        const data = await response.json();
+        setProperties(data);
+      }
+    } catch (error) {
+      console.error('Error fetching properties:', error);
+    }
+  };
+
+  const handleSaveProperty = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+
+    const propertyData = {
+      id: editingProperty?.id || undefined,
+      title: formData.get('title') as string,
+      price: Number(formData.get('price')),
+      location: formData.get('location') as string,
+      type: formData.get('type') as 'sale' | 'rent',
+      category: formData.get('category') as string,
+      bedrooms: Number(formData.get('bedrooms')),
+      bathrooms: Number(formData.get('bathrooms')),
+      area: Number(formData.get('area')),
+      description: formData.get('description') as string,
+      features: (formData.get('features') as string).split(',').map(f => f.trim()).filter(f => f),
+      image: editingProperty?.image || 'https://picsum.photos/seed/new/800/600',
+      showPrice: formData.get('showPrice') === 'on',
+      propertyNumber: formData.get('propertyNumber') as string,
+      licenseNumber: formData.get('licenseNumber') as string,
+      subType: formData.get('subType') as string,
+    };
+
+    try {
+      const method = editingProperty ? 'PUT' : 'POST';
+      const response = await fetch('/api/properties', {
+        method,
+        headers: secureHeaders(),
+        body: JSON.stringify(propertyData),
+      });
+      if (response.ok) {
+        await fetchProperties();
+        setEditingProperty(null);
+        setIsAddingProperty(false);
+      }
+    } catch (error) {
+      console.error('Error saving property:', error);
+    }
+  };
+
+  const handleDeleteProperty = async (id: string) => {
+    if (confirm('هل أنت متأكد من حذف هذا العقار؟')) {
+      try {
+        const response = await fetch(`/api/properties?id=${id}`, {
+          method: 'DELETE',
+          headers: secureHeaders(),
+        });
+        if (response.ok) await fetchProperties();
+      } catch (error) {
+        console.error('Error deleting property:', error);
+      }
+    }
+  };
+
+  if (!isLoggedIn) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white w-full max-w-md rounded-[40px] p-10 shadow-2xl border border-slate-100"
+        >
+          <div className="text-center mb-10">
+            <div className="w-20 h-20 bg-indigo-600 text-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-indigo-200">
+              <Lock size={40} />
+            </div>
+            <h1 className="text-3xl font-black text-slate-900">تسجيل الدخول</h1>
+            <p className="text-slate-500 mt-2">لوحة التحكم الخاصة بشعار العقارية</p>
+          </div>
+
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-sm font-bold text-slate-700 block">اسم المستخدم</label>
+              <div className="relative">
+                <User className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                <input
+                  name="username"
+                  required
+                  className="w-full pr-14 pl-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                  placeholder="أدخل اسم المستخدم"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-bold text-slate-700 block">كلمة المرور</label>
+              <div className="relative">
+                <Lock className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                <input
+                  name="password"
+                  type="password"
+                  required
+                  className="w-full pr-14 pl-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                  placeholder="أدخل كلمة المرور"
+                />
+              </div>
+            </div>
+
+            {loginError && (
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="p-4 bg-red-50 text-red-600 rounded-xl text-sm font-bold text-center"
+              >
+                {loginError}
+              </motion.div>
+            )}
+
+            <button
+              type="submit"
+              className="w-full py-4 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200"
+            >
+              دخول
+            </button>
+          </form>
+        </motion.div>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-50 py-12 px-4">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
+          <div>
+            <h1 className="text-3xl font-black text-slate-900">لوحة التحكم</h1>
+            <p className="text-slate-500 mt-1">إدارة الطلبات والعقارات المعروضة</p>
+          </div>
+
+          <div className="flex bg-white p-1 rounded-2xl shadow-sm border border-slate-100">
+            <button
+              onClick={() => setActiveTab('submissions')}
+              className={cn(
+                "px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2",
+                activeTab === 'submissions' ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200" : "text-slate-500 hover:bg-slate-50"
+              )}
+            >
+              <Users size={18} />
+              الطلبات
+            </button>
+            <button
+              onClick={() => setActiveTab('properties')}
+              className={cn(
+                "px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2",
+                activeTab === 'properties' ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200" : "text-slate-500 hover:bg-slate-50"
+              )}
+            >
+              <Home size={18} />
+              العقارات
+            </button>
+          </div>
+        </div>
+
+        {activeTab === 'submissions' ? (
+          <div className="space-y-4">
+            {submissions.map((sub) => (
+              <div
+                key={sub.id}
+                className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden transition-all hover:shadow-md"
+              >
+                <div
+                  className="p-6 flex flex-wrap items-center justify-between gap-4 cursor-pointer"
+                  onClick={() => setExpandedId(expandedId === sub.id ? null : sub.id)}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center font-bold text-xl">
+                      {sub.name.charAt(0)}
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-slate-900 text-lg">{sub.name}</h3>
+                      <div className="flex items-center gap-4 text-sm text-slate-500 mt-1">
+                        <span className="flex items-center gap-1"><Clock size={14} /> {new Date(sub.created_at).toLocaleDateString('ar-SA')}</span>
+                        <span className="flex items-center gap-1"><Phone size={14} /> {sub.phone}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <span className={cn(
+                      "px-4 py-1.5 rounded-full text-xs font-bold",
+                      sub.property_type === 'فيلا مستقلة' ? "bg-indigo-100 text-indigo-700" :
+                        sub.property_type === 'فيلا دبلكس' ? "bg-blue-100 text-blue-700" : "bg-emerald-100 text-emerald-700"
+                    )}>
+                      {sub.property_type}
+                    </span>
+                    <div className="text-slate-400">
+                      {expandedId === sub.id ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                    </div>
+                  </div>
+                </div>
+
+                {expandedId === sub.id && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    className="px-6 pb-8 border-t border-slate-50 pt-6"
+                  >
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                      {/* Column 1: Personal */}
+                      <div className="space-y-6">
+                        <h4 className="font-bold text-slate-400 text-xs uppercase tracking-wider">المعلومات الشخصية</h4>
+                        <div className="space-y-4">
+                          <div className="flex items-center gap-3">
+                            <Mail size={18} className="text-slate-400" />
+                            <span className="text-slate-700">{sub.email}</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <Briefcase size={18} className="text-slate-400" />
+                            <span className="text-slate-700">{sub.employer} - {sub.job_title}</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <Calendar size={18} className="text-slate-400" />
+                            <span className="text-slate-700">العمر: {sub.age} سنة</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <MessageSquare size={18} className="text-slate-400" />
+                            <span className="text-slate-700">التواصل: {sub.contact_method}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Column 2: Property */}
+                      <div className="space-y-6">
+                        <h4 className="font-bold text-slate-400 text-xs uppercase tracking-wider">بيانات العقار</h4>
+                        <div className="space-y-4">
+                          <div className="flex items-center gap-3">
+                            <DollarSign size={18} className="text-indigo-500" />
+                            <span className="text-slate-900 font-bold">{sub.property_value.toLocaleString()} ر.س</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <MapPin size={18} className="text-slate-400" />
+                            <span className="text-slate-700">{sub.city}، {sub.district}</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <Home size={18} className="text-slate-400" />
+                            <span className="text-slate-700">المساحة: {sub.area} م²</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Column 3: Financial */}
+                      <div className="space-y-6">
+                        <h4 className="font-bold text-slate-400 text-xs uppercase tracking-wider">المعلومات المالية</h4>
+                        <div className="space-y-4">
+                          <div className="p-4 bg-slate-50 rounded-2xl space-y-3">
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm text-slate-500">الدخل الشهري</span>
+                              <span className="font-bold text-slate-900">{sub.monthly_income.toLocaleString()} ر.س</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm text-slate-500">الالتزامات</span>
+                              <span className={cn("font-bold", sub.has_obligations ? "text-red-500" : "text-emerald-500")}>
+                                {sub.has_obligations ? `${sub.obligation_amount.toLocaleString()} ر.س` : 'لا يوجد'}
+                              </span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm text-slate-500">الدفعة الأولى</span>
+                              <span className={cn("font-bold", sub.has_down_payment ? "text-indigo-600" : "text-slate-400")}>
+                                {sub.has_down_payment ? `${sub.down_payment_amount.toLocaleString()} ر.س` : 'لا يتوفر'}
+                              </span>
+                            </div>
+                          </div>
+                          {sub.has_joint_applicants === 1 && (
+                            <div className="p-4 bg-indigo-50 rounded-2xl flex justify-between items-center">
+                              <span className="text-sm text-indigo-700 font-bold">دخل المتضامن</span>
+                              <span className="font-bold text-indigo-900">{sub.joint_applicant_income.toLocaleString()} ر.س</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+            ))}
+
+            {submissions.length === 0 && (
+              <div className="py-20 text-center bg-white rounded-[40px] border border-dashed border-slate-200">
+                <div className="w-20 h-20 bg-slate-50 text-slate-300 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Users size={40} />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">لا توجد طلبات بعد</h3>
+                <p className="text-slate-500">سيتم عرض الطلبات هنا بمجرد قيام العملاء بتعبئة نموذج التملك.</p>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-xl font-bold text-slate-900">إدارة العقارات</h2>
+              <button
+                onClick={() => setIsAddingProperty(true)}
+                className="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200"
+              >
+                <Plus size={20} />
+                إضافة عقار جديد
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {properties.map((property) => (
+                <div key={property.id} className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden group">
+                  <div className="aspect-video relative overflow-hidden">
+                    <img
+                      src={property.image}
+                      alt={property.title}
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute top-4 right-4 flex gap-2">
+                      <span className={cn(
+                        "px-3 py-1 rounded-full text-xs font-bold backdrop-blur-md text-white",
+                        property.type === 'sale' ? "bg-indigo-600/90" : "bg-emerald-600/90"
+                      )}>
+                        {property.type === 'sale' ? 'للبيع' : 'للإيجار'}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-bold text-slate-900 mb-2 line-clamp-1">{property.title}</h3>
+                    <div className="flex items-center gap-2 text-sm text-slate-500 mb-4">
+                      <MapPin size={14} />
+                      {property.location}
+                    </div>
+                    <div className="flex items-center justify-between pt-4 border-t border-slate-50">
+                      <div className="font-black text-indigo-600">
+                        {property.showPrice !== false ? `${property.price.toLocaleString()} ر.س` : 'السعر مخفي'}
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => setEditingProperty(property)}
+                          className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"
+                        >
+                          <Edit2 size={18} />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteProperty(property.id)}
+                          className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Property Form Modal */}
+      <AnimatePresence>
+        {(editingProperty || isAddingProperty) && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[40px] p-8 md:p-12 shadow-2xl"
+            >
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="text-2xl font-black text-slate-900">
+                  {editingProperty ? 'تعديل العقار' : 'إضافة عقار جديد'}
+                </h2>
+                <button
+                  onClick={() => { setEditingProperty(null); setIsAddingProperty(false); }}
+                  className="p-2 bg-slate-100 text-slate-500 rounded-full hover:bg-slate-200 transition-all"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              <form onSubmit={handleSaveProperty} className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700">عنوان العقار</label>
+                    <input
+                      name="title"
+                      defaultValue={editingProperty?.title}
+                      required
+                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                      placeholder="مثال: شقة استوديو للعزاب"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700">الموقع</label>
+                    <input
+                      name="location"
+                      defaultValue={editingProperty?.location}
+                      required
+                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                      placeholder="الرياض، حي الملقا"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700">السعر (ر.س)</label>
+                    <input
+                      name="price"
+                      type="number"
+                      defaultValue={editingProperty?.price}
+                      required
+                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700">نوع العرض</label>
+                    <select
+                      name="type"
+                      defaultValue={editingProperty?.type || 'sale'}
+                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none appearance-none"
+                    >
+                      <option value="sale">للبيع</option>
+                      <option value="rent">للإيجار</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700">التصنيف</label>
+                    <select
+                      name="category"
+                      defaultValue={editingProperty?.category || 'apartment'}
+                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none appearance-none"
+                    >
+                      <option value="apartment">شقة</option>
+                      <option value="villa">فيلا</option>
+                      <option value="office">مكتب</option>
+                      <option value="land">أرض</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700">النوع الفرعي</label>
+                    <input
+                      name="subType"
+                      defaultValue={editingProperty?.subType}
+                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                      placeholder="مثال: دبلكس، استوديو"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700">غرف النوم</label>
+                    <input
+                      name="bedrooms"
+                      type="number"
+                      defaultValue={editingProperty?.bedrooms || 0}
+                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700">دورات المياه</label>
+                    <input
+                      name="bathrooms"
+                      type="number"
+                      defaultValue={editingProperty?.bathrooms || 0}
+                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700">المساحة (م²)</label>
+                    <input
+                      name="area"
+                      type="number"
+                      defaultValue={editingProperty?.area}
+                      required
+                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700">رقم العقار</label>
+                    <input
+                      name="propertyNumber"
+                      defaultValue={editingProperty?.propertyNumber}
+                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700">رقم ترخيص الإعلان</label>
+                    <input
+                      name="licenseNumber"
+                      defaultValue={editingProperty?.licenseNumber}
+                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                    />
+                  </div>
+                  <div className="flex items-center gap-3 pt-10">
+                    <input
+                      type="checkbox"
+                      name="showPrice"
+                      id="showPrice"
+                      defaultChecked={editingProperty?.showPrice !== false}
+                      className="w-6 h-6 rounded-lg text-indigo-600 focus:ring-indigo-500 border-slate-200"
+                    />
+                    <label htmlFor="showPrice" className="text-sm font-bold text-slate-700 flex items-center gap-2">
+                      عرض السعر للعملاء
+                      {editingProperty?.showPrice === false ? <EyeOff size={16} className="text-slate-400" /> : <Eye size={16} className="text-indigo-500" />}
+                    </label>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-slate-700">الوصف</label>
+                  <textarea
+                    name="description"
+                    defaultValue={editingProperty?.description}
+                    required
+                    rows={4}
+                    className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none resize-none"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-slate-700">المزايا والمرافق (افصل بينها بفاصلة)</label>
+                  <input
+                    name="features"
+                    defaultValue={editingProperty?.features.join(', ')}
+                    className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                    placeholder="مثال: مؤثث، دخول ذكي، قريب من المترو"
+                  />
+                </div>
+
+                <div className="space-y-4">
+                  <label className="text-sm font-bold text-slate-700">صور العقار</label>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="aspect-square bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center text-slate-400 hover:bg-slate-100 hover:border-indigo-300 transition-all cursor-pointer group">
+                      <Plus size={32} className="group-hover:text-indigo-500 transition-all" />
+                      <span className="text-xs font-bold mt-2">رفع صورة</span>
+                    </div>
+                    {editingProperty?.image && (
+                      <div className="aspect-square relative rounded-3xl overflow-hidden group">
+                        <img src={editingProperty.image} className="w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
+                          <button type="button" className="p-2 bg-red-500 text-white rounded-xl">
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex gap-4 pt-4">
+                  <button
+                    type="submit"
+                    className="flex-1 py-4 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2"
+                  >
+                    <Save size={20} />
+                    حفظ التغييرات
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { setEditingProperty(null); setIsAddingProperty(false); }}
+                    className="px-8 py-4 bg-slate-100 text-slate-600 rounded-2xl font-bold hover:bg-slate-200 transition-all"
+                  >
+                    إلغاء
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
