@@ -29,7 +29,8 @@ import {
   Link as LinkIcon,
   Upload,
   Settings,
-  Megaphone
+  Megaphone,
+  ClipboardCopy
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { Property } from '../types';
@@ -541,6 +542,42 @@ export default function Dashboard() {
                           )}
                         </div>
                       </div>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-slate-100">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const text = [
+                            `الاسم: ${sub.name}`,
+                            `الجوال: ${sub.phone}`,
+                            `البريد: ${sub.email}`,
+                            `العمر: ${sub.age}`,
+                            `جهة العمل: ${sub.employer}`,
+                            `المسمى الوظيفي: ${sub.job_title}`,
+                            `---`,
+                            `نوع العقار: ${sub.property_type}`,
+                            `قيمة العقار: ${sub.property_value?.toLocaleString()} ر.س`,
+                            `المدينة: ${sub.city}`,
+                            `الحي: ${sub.district}`,
+                            `المساحة: ${sub.area} م²`,
+                            `---`,
+                            `الدخل الشهري: ${sub.monthly_income?.toLocaleString()} ر.س`,
+                            `التزامات: ${sub.has_obligations ? `نعم - ${sub.obligation_amount?.toLocaleString()} ر.س` : 'لا'}`,
+                            `دفعة أولى: ${sub.has_down_payment ? `نعم - ${sub.down_payment_amount?.toLocaleString()} ر.س` : 'لا'}`,
+                            sub.has_joint_applicants ? `دخل المتضامن: ${sub.joint_applicant_income?.toLocaleString()} ر.س` : '',
+                            `طريقة التواصل: ${sub.contact_method}`,
+                            `تاريخ الطلب: ${new Date(sub.created_at).toLocaleDateString('ar-SA')}`,
+                          ].filter(Boolean).join('\n');
+                          navigator.clipboard.writeText(text).then(() => {
+                            alert('تم نسخ بيانات الطلب بنجاح!');
+                          });
+                        }}
+                        className="flex items-center gap-2 px-6 py-3 bg-indigo-50 text-indigo-600 rounded-2xl font-bold hover:bg-indigo-100 transition-all text-sm"
+                      >
+                        <ClipboardCopy size={16} />
+                        نسخ بيانات الطلب
+                      </button>
                     </div>
                   </motion.div>
                 )}

@@ -48,11 +48,13 @@ export const InterestForm: React.FC<InterestFormProps> = ({ property, onClose })
       if (response.ok) {
         setStatus('success');
       } else {
-        throw new Error('Submission failed');
+        const data = await response.json().catch(() => null);
+        alert(data?.error || 'حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.');
+        setStatus('idle');
       }
     } catch (error) {
       console.error('Error submitting interest:', error);
-      alert('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.');
+      alert('حدث خطأ في الاتصال. يرجى التحقق من الإنترنت والمحاولة مرة أخرى.');
       setStatus('idle');
     }
   };

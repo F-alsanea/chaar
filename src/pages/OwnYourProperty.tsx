@@ -56,10 +56,13 @@ export default function OwnYourProperty() {
       });
       if (response.ok) {
         setIsSubmitted(true);
+      } else {
+        const data = await response.json().catch(() => null);
+        alert(data?.error || 'حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.');
+      alert('حدث خطأ في الاتصال. يرجى التحقق من الإنترنت والمحاولة مرة أخرى.');
     }
   };
 

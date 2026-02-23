@@ -91,7 +91,7 @@ export default async function handler(req: any, res: any) {
             if (!sanitized.name || sanitized.name.length < 2) {
                 return res.status(400).json({ error: 'الاسم مطلوب' });
             }
-            if (!sanitized.phone || sanitized.phone.length < 10) {
+            if (!sanitized.phone || sanitized.phone.length < 9) {
                 return res.status(400).json({ error: 'رقم الجوال غير صالح' });
             }
 
