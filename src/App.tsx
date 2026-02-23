@@ -172,11 +172,17 @@ function HomePage() {
 
   // Scroll to properties if filter is applied via URL
   useEffect(() => {
-    if (searchParams.get('type') || searchParams.get('category')) {
-      const element = document.getElementById('properties-grid');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+    const type = searchParams.get('type');
+    const category = searchParams.get('category');
+    if (type || category) {
+      // Add a small delay to allow the grid to filter and layout to stabilize
+      const timer = setTimeout(() => {
+        const element = document.getElementById('properties-grid');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 150);
+      return () => clearTimeout(timer);
     }
   }, [searchParams]);
 
@@ -640,26 +646,37 @@ function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-black text-slate-900 mb-4">موقعنا</h2>
-            <p className="text-slate-500">تفضل بزيارتنا في مقرنا بمدينة جدة</p>
-          </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="relative overflow-hidden rounded-[40px] shadow-2xl border border-slate-100 h-[450px] bg-slate-50"
+            >
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3706.776634568808!2d39.1118671!3d21.7114631!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3d972776c59d9%3A0xe54d6ea61bface66!2z2LTYudCw2LEg2KfZhNi52YLZitCw2LHZitip!5e0!3m2!1sar!2ssa!4v1700000000000!5m2!1sar!2ssa"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="موقع شعار العقارية"
+              ></iframe>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative overflow-hidden rounded-[40px] shadow-2xl border border-slate-100 h-[450px]"
-          >
-            <iframe
-              src="https://maps.google.com/maps?q=%D8%B4%D8%B9%D8%A7%D8%B1%20%D8%A7%D9%84%D8%B9%D9%82%D8%A7%D8%B1%D9%8A%D8%A9%D8%8C%20%D8%B7%D8%B1%D9%8A%D9%82%20%D8%A7%D9%84%D8%A3%D9%85%D9%8A%D8%B1%20%D9%86%D8%A7%D9%8A%D9%81%D8%8C%20%D8%A7%D8%A8%D8%AD%D8%B1%20%D8%A7%D9%84%D8%B4%D9%85%D8%A7%D9%84%D9%8A%D8%A9%D8%8C%20%D8%AD%D9%8A%20%D8%A7%D9%84%D9%81%D8%B1%D8%AF%D9%88%D8%B3%D8%8C%20%D8%AC%D8%AF%D8%A9%2023818&t=&z=15&ie=UTF8&iwloc=&output=embed"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen={true}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="موقع شعار العقارية"
-            ></iframe>
-          </motion.div>
+              {/* Link Overlay */}
+              <a
+                href="https://maps.app.goo.gl/KLYVVN1gQCJKqrxk8"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0 z-10 flex items-end justify-end p-6 bg-transparent group"
+              >
+                <div className="bg-white px-6 py-3 rounded-2xl shadow-xl border border-slate-100 font-bold text-slate-900 group-hover:bg-indigo-600 group-hover:text-white transition-all flex items-center gap-2">
+                  <MapPin size={20} />
+                  <span>فتح في خرائط جوجل</span>
+                </div>
+              </a>
+            </motion.div>
+          </div>
         </div>
       </section>
 
