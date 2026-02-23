@@ -1,5 +1,33 @@
 import { createClient } from '@supabase/supabase-js';
-import { sanitizeString, sanitizeEmail, sanitizePhone, sanitizeNumber, sanitizeObject } from './lib/sanitize';
+
+// Inline sanitize functions (Vercel doesn't bundle shared files from subdirs)
+function sanitizeString(input: string): string {
+    if (typeof input !== 'string') return '';
+    return input
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;')
+        .replace(/\//g, '&#x2F;')
+        .trim();
+}
+
+function sanitizeNumber(input: unknown): number {
+    const num = Number(input);
+    if (isNaN(num) || !isFinite(num)) return 0;
+    return num;
+}
+
+function sanitizeEmail(input: string): string {
+    if (typeof input !== 'string') return '';
+    return input.replace(/[^a-zA-Z0-9@._\-+]/g, '').trim().toLowerCase();
+}
+
+function sanitizePhone(input: string): string {
+    if (typeof input !== 'string') return '';
+    return input.replace(/[^0-9+\-() ]/g, '').trim();
+}
 
 const supabase = createClient(
     process.env.SUPABASE_URL || '',
