@@ -334,7 +334,7 @@ export default function OwnYourProperty() {
                         className={cn(
                           "flex-1 py-3 rounded-xl font-bold border transition-all",
                           formData.hasObligations === val
-                            ? "bg-slate-900 dark:bg-indigo-600 border-slate-900 dark:border-indigo-600 text-white"
+                            ? "bg-indigo-600 dark:bg-indigo-500 border-indigo-600 dark:border-indigo-500 text-white"
                             : "bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600"
                         )}
                       >
@@ -373,7 +373,7 @@ export default function OwnYourProperty() {
                         className={cn(
                           "flex-1 py-3 rounded-xl font-bold border transition-all",
                           formData.hasDownPayment === val
-                            ? "bg-slate-900 dark:bg-indigo-600 border-slate-900 dark:border-indigo-600 text-white"
+                            ? "bg-indigo-600 dark:bg-indigo-500 border-indigo-600 dark:border-indigo-500 text-white"
                             : "bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600"
                         )}
                       >
@@ -462,7 +462,7 @@ export default function OwnYourProperty() {
                   className={cn(
                     "flex-1 py-4 rounded-2xl font-bold border transition-all flex items-center justify-center gap-2",
                     formData.contactMethod === method
-                      ? "bg-slate-900 dark:bg-indigo-600 border-slate-900 dark:border-indigo-600 text-white shadow-lg dark:shadow-none"
+                      ? "bg-indigo-600 dark:bg-indigo-500 border-indigo-600 dark:border-indigo-500 text-white shadow-lg dark:shadow-none"
                       : "bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600"
                   )}
                 >
