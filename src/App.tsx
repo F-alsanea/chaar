@@ -23,7 +23,9 @@ import {
   Star,
   Phone,
   Mail,
-  MessageCircle
+  MessageCircle,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { MOCK_PROPERTIES, Property } from './types';
 import { PropertyCard } from './components/PropertyCard';
@@ -214,10 +216,10 @@ function HomePage() {
   return (
     <main className="flex-grow">
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 overflow-hidden">
+      <section className="relative py-20 lg:py-32 overflow-hidden bg-white dark:bg-slate-950 transition-colors">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 right-0 w-1/2 h-full bg-indigo-50/50 rounded-bl-[100px]" />
-          <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-emerald-50/30 blur-3xl rounded-full" />
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-indigo-50/50 dark:bg-indigo-900/10 rounded-bl-[100px]" />
+          <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-emerald-50/30 dark:bg-emerald-900/10 blur-3xl rounded-full" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -225,7 +227,7 @@ function HomePage() {
             <motion.span
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-bold mb-6"
+              className="inline-block px-4 py-1.5 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-full text-sm font-bold mb-6"
             >
               مرحباً بك في شعار العقارية
             </motion.span>
@@ -233,15 +235,15 @@ function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-5xl lg:text-7xl font-black text-slate-900 leading-[1.1] mb-8"
+              className="text-5xl lg:text-7xl font-black text-slate-900 dark:text-white leading-[1.1] mb-8"
             >
-              ابحث عن منزل <span className="text-indigo-600">أحلامك</span> بكل سهولة وذكاء
+              ابحث عن منزل <span className="text-indigo-600 dark:text-indigo-400">أحلامك</span> بكل سهولة وذكاء
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-xl text-slate-500 mb-12 leading-relaxed"
+              className="text-xl text-slate-500 dark:text-slate-400 mb-12 leading-relaxed"
             >
               نقدم لك مجموعة مختارة من أرقى العقارات ، سواء كنت تبحث عن شراء أو استئجار، نحن هنا لخدمتك.
             </motion.p>
@@ -251,29 +253,29 @@ function HomePage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="p-2 bg-white rounded-2xl shadow-2xl shadow-slate-200/50 flex flex-col md:flex-row gap-2"
+              className="p-2 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl shadow-slate-200/50 dark:shadow-slate-950/50 flex flex-col md:flex-row gap-2 border dark:border-slate-800"
             >
-              <div className="flex-grow flex items-center px-4 gap-3 bg-slate-50 rounded-xl">
-                <Search className="text-slate-400" size={20} />
+              <div className="flex-grow flex items-center px-4 gap-3 bg-slate-50 dark:bg-slate-800 rounded-xl">
+                <Search className="text-slate-400 dark:text-slate-500" size={20} />
                 <input
                   type="text"
                   placeholder="ابحث بالحي، المدينة، أو نوع العقار..."
-                  className="w-full py-4 bg-transparent outline-none text-slate-900 font-medium"
+                  className="w-full py-4 bg-transparent outline-none text-slate-900 dark:text-white font-medium placeholder:text-slate-400 dark:placeholder:text-slate-500"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
               <div className="flex gap-2">
-                <div className="hidden md:flex items-center px-4 gap-2 bg-slate-50 rounded-xl border border-slate-100">
-                  <MapPin className="text-slate-400" size={18} />
-                  <select className="bg-transparent outline-none text-slate-700 font-medium cursor-pointer">
-                    <option>كل المدن</option>
-                    <option>الرياض</option>
-                    <option>جدة</option>
-                    <option>الدمام</option>
+                <div className="hidden md:flex items-center px-4 gap-2 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
+                  <MapPin className="text-slate-400 dark:text-slate-500" size={18} />
+                  <select className="bg-transparent outline-none text-slate-700 dark:text-slate-300 font-medium cursor-pointer">
+                    <option className="dark:bg-slate-800">كل المدن</option>
+                    <option className="dark:bg-slate-800">الرياض</option>
+                    <option className="dark:bg-slate-800">جدة</option>
+                    <option className="dark:bg-slate-800">الدمام</option>
                   </select>
                 </div>
-                <button className="px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 flex items-center gap-2">
+                <button className="px-8 py-4 bg-indigo-600 dark:bg-indigo-500 text-white rounded-xl font-bold hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all shadow-lg shadow-indigo-200 dark:shadow-none flex items-center gap-2">
                   <span>ابحث الآن</span>
                   <ArrowRight size={18} />
                 </button>
@@ -284,14 +286,14 @@ function HomePage() {
       </section>
 
       {/* Luxury Banner Section */}
-      <section className="py-12 bg-white overflow-hidden">
+      <section className="py-12 bg-white dark:bg-slate-950 transition-colors overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <LuxuryBanner />
         </div>
       </section>
 
       {/* Vision & Goals Section */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-50 dark:bg-slate-900 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -299,25 +301,25 @@ function HomePage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-100 text-indigo-700 rounded-xl font-bold mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 rounded-xl font-bold mb-6">
                 <Target size={20} />
                 <span>رؤيتنا</span>
               </div>
-              <h2 className="text-4xl font-black text-slate-900 mb-6 leading-tight">
+              <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-6 leading-tight">
                 توفير فرص استثمارية وسكنية استثنائية في قطاع العقارات
               </h2>
-              <p className="text-xl text-slate-600 leading-relaxed mb-8">
+              <p className="text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
                 نسعى لتحقيق تجربة متفوقة لعملائنا من خلال الابتكار والشفافية، لنكون الخيار الأول في عالم العقارات بالمملكة.
               </p>
 
               <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-slate-900 flex items-center gap-3">
-                  <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                  <div className="w-10 h-10 bg-indigo-600 dark:bg-indigo-500 rounded-lg flex items-center justify-center text-white">
                     <Zap size={20} />
                   </div>
                   الأهداف
                 </h3>
-                <p className="text-slate-500 font-medium">لنجعل حياتك أجمل ، أسهل ، وأسعد ... نهدف دوماً إلى:</p>
+                <p className="text-slate-500 dark:text-slate-400 font-medium">لنجعل حياتك أجمل ، أسهل ، وأسعد ... نهدف دوماً إلى:</p>
 
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {[
@@ -325,9 +327,9 @@ function HomePage() {
                     "تسهيل عمليات البحث عن العقار واختياره وشراءه وتملكه",
                     "توفير خدمات متكاملة تمتد من فكرة شراء العقار إلى ما بعد البيع"
                   ].map((goal, idx) => (
-                    <li key={idx} className="flex items-start gap-3 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                    <li key={idx} className="flex items-start gap-3 p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm transition-colors">
                       <CheckCircle2 className="text-emerald-500 shrink-0 mt-1" size={20} />
-                      <span className="text-slate-700 font-medium">{goal}</span>
+                      <span className="text-slate-700 dark:text-slate-300 font-medium uppercase">{goal}</span>
                     </li>
                   ))}
                 </ul>
@@ -340,7 +342,7 @@ function HomePage() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="aspect-square rounded-[60px] overflow-hidden shadow-2xl">
+              <div className="aspect-square rounded-[60px] overflow-hidden shadow-2xl dark:shadow-slate-950/50">
                 <img
                   src="https://picsum.photos/seed/vision/800/800"
                   alt="Vision"
@@ -348,14 +350,14 @@ function HomePage() {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <div className="absolute -bottom-8 -right-8 p-8 bg-white rounded-3xl shadow-xl border border-slate-100 hidden md:block">
+              <div className="absolute -bottom-8 -right-8 p-8 bg-white dark:bg-slate-800 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-700 hidden md:block">
                 <div className="flex items-center gap-4 mb-2">
-                  <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center">
                     <ShieldCheck size={24} />
                   </div>
                   <div>
-                    <div className="text-2xl font-black text-slate-900">100%</div>
-                    <div className="text-sm text-slate-500 font-bold">عقارات موثوقة</div>
+                    <div className="text-2xl font-black text-slate-900 dark:text-white">100%</div>
+                    <div className="text-sm text-slate-500 dark:text-slate-400 font-bold">عقارات موثوقة</div>
                   </div>
                 </div>
               </div>
@@ -365,11 +367,11 @@ function HomePage() {
       </section>
 
       {/* Why Us Section */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white dark:bg-slate-950 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-black text-slate-900 mb-6">لماذا نحن؟</h2>
-            <p className="text-slate-500 text-lg">نحن نتميز بتقديم حلول متكاملة تجعل من رحلة البحث عن عقار تجربة ممتعة ومضمونة.</p>
+            <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-6">لماذا نحن؟</h2>
+            <p className="text-slate-500 dark:text-slate-400 text-lg">نحن نتميز بتقديم حلول متكاملة تجعل من رحلة البحث عن عقار تجربة ممتعة ومضمونة.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -378,19 +380,19 @@ function HomePage() {
                 title: "حلول تمويليه",
                 desc: "توفير برامج تمويل متعددة تناسب احتياجاتك وقدراتك المالية بالتعاون مع كبرى البنوك.",
                 icon: Wallet,
-                color: "bg-blue-50 text-blue-600"
+                color: "bg-blue-50 dark:bg-blue-900/10 text-blue-600 dark:text-blue-400"
               },
               {
                 title: "عروض مباشرة",
                 desc: "عروض مباشرة من المالك أو من شركات عقارية كبرى لضمان أفضل الأسعار والشفافية التامة.",
                 icon: Building2,
-                color: "bg-indigo-50 text-indigo-600"
+                color: "bg-indigo-50 dark:bg-indigo-900/10 text-indigo-600 dark:text-indigo-400"
               },
               {
                 title: "مرونة و تجاوب",
                 desc: "توفير الطلب بأسرع وقت ومتابعة دقيقة من الحجز إلى استلام العقار لضمان رضاكم.",
                 icon: Users,
-                color: "bg-emerald-50 text-emerald-600"
+                color: "bg-emerald-50 dark:bg-emerald-900/10 text-emerald-600 dark:text-emerald-400"
               }
             ].map((item, idx) => (
               <motion.div
@@ -399,13 +401,13 @@ function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="p-8 rounded-[32px] border border-slate-100 hover:border-indigo-100 hover:shadow-xl hover:shadow-indigo-500/5 transition-all group"
+                className="p-8 rounded-[32px] border border-slate-100 dark:border-slate-800 hover:border-indigo-100 dark:hover:border-indigo-900/50 hover:shadow-xl hover:shadow-indigo-500/5 transition-all group bg-white dark:bg-slate-900/50"
               >
                 <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110", item.color)}>
                   <item.icon size={32} />
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">{item.title}</h3>
-                <p className="text-slate-600 leading-relaxed">{item.desc}</p>
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">{item.title}</h3>
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -413,12 +415,12 @@ function HomePage() {
       </section>
 
       {/* Featured Properties */}
-      <section id="properties-grid" className="py-24 bg-white">
+      <section id="properties-grid" className="py-24 bg-white dark:bg-slate-950 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
-              <h2 className="text-3xl font-black text-slate-900 mb-4">استكشف العقارات المتاحة</h2>
-              <p className="text-slate-500">اختر من بين مئات العقارات الموثوقة والمحدثة يومياً</p>
+              <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-4">استكشف العقارات المتاحة</h2>
+              <p className="text-slate-500 dark:text-slate-400">اختر من بين مئات العقارات الموثوقة والمحدثة يومياً</p>
             </div>
 
             {/* Filters */}
@@ -427,7 +429,7 @@ function HomePage() {
                 onClick={() => setFilter('all')}
                 className={cn(
                   "px-6 py-2.5 rounded-xl font-bold transition-all",
-                  filter === 'all' ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  filter === 'all' ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700"
                 )}
               >
                 الكل
@@ -436,7 +438,7 @@ function HomePage() {
                 onClick={() => setFilter('sale')}
                 className={cn(
                   "px-6 py-2.5 rounded-xl font-bold transition-all",
-                  filter === 'sale' ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  filter === 'sale' ? "bg-indigo-600 dark:bg-indigo-500 text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700"
                 )}
               >
                 للبيع
@@ -445,7 +447,7 @@ function HomePage() {
                 onClick={() => setFilter('rent')}
                 className={cn(
                   "px-6 py-2.5 rounded-xl font-bold transition-all",
-                  filter === 'rent' ? "bg-emerald-600 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  filter === 'rent' ? "bg-emerald-600 dark:bg-emerald-500 text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700"
                 )}
               >
                 للإيجار
@@ -468,8 +470,8 @@ function HomePage() {
                 className={cn(
                   "flex items-center gap-2 px-6 py-3 rounded-2xl border transition-all whitespace-nowrap",
                   category === cat.id
-                    ? "bg-indigo-50 border-indigo-200 text-indigo-700 font-bold"
-                    : "bg-white border-slate-100 text-slate-500 hover:border-slate-300"
+                    ? "bg-indigo-50 dark:bg-indigo-900/30 border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 font-bold"
+                    : "bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700"
                 )}
               >
                 <cat.icon size={18} />
@@ -504,11 +506,11 @@ function HomePage() {
       </section>
 
       {/* Partners Section */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-50 dark:bg-slate-900 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-black text-slate-900 mb-4">شركاؤنا في النجاح</h2>
-            <p className="text-slate-500">نفخر بثقة نخبة من المطورين والعملاء في خدماتنا</p>
+            <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-4">شركاؤنا في النجاح</h2>
+            <p className="text-slate-500 dark:text-slate-400">نفخر بثقة نخبة من المطورين والعملاء في خدماتنا</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
@@ -523,12 +525,12 @@ function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="bg-white p-8 rounded-[32px] shadow-sm border border-slate-100 text-center"
+                className="bg-white dark:bg-slate-800 p-8 rounded-[32px] shadow-sm border border-slate-100 dark:border-slate-700 text-center transition-colors"
               >
-                <div className="text-4xl font-black text-indigo-600 mb-2">
+                <div className="text-4xl font-black text-indigo-600 dark:text-indigo-400 mb-2">
                   <Counter value={stat.value} suffix={stat.suffix} />
                 </div>
-                <div className="text-slate-600 font-bold">{stat.label}</div>
+                <div className="text-slate-600 dark:text-slate-300 font-bold">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -537,12 +539,12 @@ function HomePage() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="rounded-[40px] overflow-hidden shadow-2xl border border-slate-100"
+            className="rounded-[40px] overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800"
           >
             <img
               src="https://i.ibb.co/TxQ5XLYQ/2026-02-22-200829.png"
               alt="Partners"
-              className="w-full h-auto object-cover"
+              className="w-full h-auto object-cover dark:opacity-80 transition-opacity"
               referrerPolicy="no-referrer"
             />
           </motion.div>
@@ -550,9 +552,9 @@ function HomePage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-24">
+      <section className="py-24 bg-white dark:bg-slate-950 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden bg-indigo-600 rounded-[40px] p-12 lg:p-20 text-center text-white">
+          <div className="relative overflow-hidden bg-indigo-600 dark:bg-indigo-700 rounded-[40px] p-12 lg:p-20 text-center text-white">
             <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 blur-3xl rounded-full -translate-x-1/2 -translate-y-1/2" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-400/20 blur-3xl rounded-full translate-x-1/3 translate-y-1/3" />
 
@@ -564,7 +566,7 @@ function HomePage() {
               <div className="flex items-center justify-center">
                 <a
                   href="tel:0544137950"
-                  className="w-full sm:w-auto px-10 py-4 bg-white text-indigo-600 rounded-2xl font-bold hover:bg-indigo-50 transition-all shadow-xl shadow-indigo-900/20 flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-10 py-4 bg-white text-indigo-600 dark:text-indigo-700 rounded-2xl font-bold hover:bg-indigo-50 transition-all shadow-xl shadow-indigo-900/20 flex items-center justify-center gap-2"
                 >
                   <Phone size={20} />
                   تواصل مع المبيعات
@@ -576,16 +578,16 @@ function HomePage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-24 bg-slate-900 text-white overflow-hidden relative">
+      <section className="py-24 bg-slate-900 dark:bg-slate-950 text-white overflow-hidden relative transition-colors">
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
-          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500 blur-[120px] rounded-full" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-emerald-500 blur-[120px] rounded-full" />
+          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500 dark:bg-indigo-600 blur-[120px] rounded-full" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-emerald-500 dark:bg-emerald-600 blur-[120px] rounded-full" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-black mb-6">آراء عملائنا</h2>
-            <p className="text-slate-400 text-lg">نفخر بثقة عملائنا ونسعى دائماً لتقديم الأفضل</p>
+            <p className="text-slate-400 dark:text-slate-500 text-lg">نفخر بثقة عملائنا ونسعى دائماً لتقديم الأفضل</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -612,7 +614,7 @@ function HomePage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="p-8 bg-slate-800/50 backdrop-blur-sm rounded-[32px] border border-slate-700 relative group hover:bg-slate-800 transition-all"
+                className="p-8 bg-slate-800/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-[32px] border border-slate-700 dark:border-slate-800 relative group hover:bg-slate-800 dark:hover:bg-slate-800/80 transition-all"
               >
                 <Quote className="absolute top-6 left-6 text-indigo-500/20 group-hover:text-indigo-500/40 transition-colors" size={48} />
 
@@ -622,17 +624,17 @@ function HomePage() {
                   ))}
                 </div>
 
-                <p className="text-lg text-slate-300 leading-relaxed mb-8 italic">
+                <p className="text-lg text-slate-300 dark:text-slate-400 leading-relaxed mb-8 italic">
                   "{testimonial.text}"
                 </p>
 
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center font-bold text-xl">
+                  <div className="w-12 h-12 bg-indigo-600 dark:bg-indigo-500 rounded-full flex items-center justify-center font-bold text-xl">
                     {testimonial.name.charAt(0)}
                   </div>
                   <div>
                     <h4 className="font-bold text-white">{testimonial.name}</h4>
-                    <p className="text-sm text-slate-500">{testimonial.role}</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-600">{testimonial.role}</p>
                   </div>
                 </div>
               </motion.div>
@@ -642,15 +644,15 @@ function HomePage() {
       </section>
 
       {/* Map Section */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white dark:bg-slate-950 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-black text-slate-900 mb-4">موقعنا</h2>
+            <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-4">موقعنا</h2>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="relative overflow-hidden rounded-[40px] shadow-2xl border border-slate-100 h-[450px] bg-slate-50"
+              className="relative overflow-hidden rounded-[40px] shadow-2xl dark:shadow-slate-950/50 border border-slate-100 dark:border-slate-800 h-[450px] bg-slate-50 dark:bg-slate-900 transition-colors"
             >
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14828.694600109506!2d39.1118671!3d21.7114631!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3d972776c59d9%3A0xe54d6ea61bface66!2z2LTYudCw2LEg2KfZhNi52YLZitCw2LHZitip!5e0!3m2!1sar!2ssa!4v1708684000000!5m2!1sar!2ssa"
@@ -661,6 +663,7 @@ function HomePage() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="موقع شعار العقارية"
+                className="relative z-0 dark:invert-[0.85] dark:hue-rotate-180 transition-all grayscale-[0.2] dark:grayscale-[0.5]"
               ></iframe>
 
               {/* Link Overlay */}
@@ -670,7 +673,7 @@ function HomePage() {
                 rel="noopener noreferrer"
                 className="absolute inset-0 z-10 flex items-end justify-end p-6 bg-transparent group"
               >
-                <div className="bg-white px-6 py-3 rounded-2xl shadow-xl border border-slate-100 font-bold text-slate-900 group-hover:bg-indigo-600 group-hover:text-white transition-all flex items-center gap-2">
+                <div className="bg-white dark:bg-slate-800 px-6 py-3 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 font-bold text-slate-900 dark:text-white group-hover:bg-indigo-600 dark:group-hover:bg-indigo-500 group-hover:text-white transition-all flex items-center gap-2">
                   <MapPin size={20} />
                   <span>فتح في خرائط جوجل</span>
                 </div>
@@ -703,15 +706,35 @@ function HomePage() {
 function Layout({ children }: { children: React.ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('theme');
+      if (saved) return saved === 'dark';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDark]);
+
+  const toggleTheme = () => setIsDark(!isDark);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-slate-950 transition-colors duration-300">
       {/* Navigation */}
-      <nav className="sticky top-0 z-40 glass border-b border-slate-200/50">
+      <nav className="sticky top-0 z-40 glass dark:bg-slate-900/80 border-b border-slate-200/50 dark:border-slate-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <Link to="/" className="flex items-center gap-3">
-              <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-slate-200 overflow-hidden">
+              <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center shadow-lg shadow-slate-200 dark:shadow-none overflow-hidden">
                 <img
                   src="/favicon.png"
                   alt="Logo"
@@ -719,33 +742,50 @@ function Layout({ children }: { children: React.ReactNode }) {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <span className="text-2xl font-black text-slate-900 tracking-tight">شعار العقارية</span>
+              <span className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">شعار العقارية</span>
             </Link>
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-8">
-              <Link to="/" className={cn("font-medium transition-colors", location.pathname === '/' ? "text-indigo-600" : "text-slate-600 hover:text-indigo-600")}>الرئيسية</Link>
-              <Link to="/about-us" className={cn("font-medium transition-colors", location.pathname === '/about-us' ? "text-indigo-600" : "text-slate-600 hover:text-indigo-600")}>من نحن</Link>
-              <Link to="/own-property" className={cn("font-medium transition-colors", location.pathname === '/own-property' ? "text-indigo-600" : "text-slate-600 hover:text-indigo-600")}>تملك عقارك</Link>
-              <Link to="/?type=sale" className="text-slate-600 hover:text-indigo-600 font-medium transition-colors">عقارات للبيع</Link>
-              <Link to="/?type=rent" className="text-slate-600 hover:text-indigo-600 font-medium transition-colors">عقارات للإيجار</Link>
+              <Link to="/" className={cn("font-medium transition-colors", location.pathname === '/' ? "text-indigo-600 dark:text-indigo-400" : "text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400")}>الرئيسية</Link>
+              <Link to="/about-us" className={cn("font-medium transition-colors", location.pathname === '/about-us' ? "text-indigo-600 dark:text-indigo-400" : "text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400")}>من نحن</Link>
+              <Link to="/own-property" className={cn("font-medium transition-colors", location.pathname === '/own-property' ? "text-indigo-600 dark:text-indigo-400" : "text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400")}>تملك عقارك</Link>
+              <Link to="/?type=sale" className="text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition-colors">عقارات للبيع</Link>
+              <Link to="/?type=rent" className="text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition-colors">عقارات للإيجار</Link>
+
+              <button
+                onClick={toggleTheme}
+                className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all shadow-sm"
+                aria-label="Toggle theme"
+              >
+                {isDark ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+
               <a
                 href={`https://wa.me/966544137950?text=${encodeURIComponent('السلام عليكم حاب اعرض عقاري عندكم')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-2.5 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all"
+                className="px-6 py-2.5 bg-slate-900 dark:bg-indigo-600 text-white rounded-xl font-bold hover:bg-slate-800 dark:hover:bg-indigo-700 transition-all"
               >
                 أضف عقارك
               </a>
             </div>
 
             {/* Mobile Menu Toggle */}
-            <button
-              className="md:hidden p-2 text-slate-600"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            <div className="flex items-center gap-2 md:hidden">
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+              >
+                {isDark ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+              <button
+                className="p-2 text-slate-600 dark:text-slate-400"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              >
+                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -756,14 +796,14 @@ function Layout({ children }: { children: React.ReactNode }) {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-white border-t border-slate-100 overflow-hidden"
+              className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 overflow-hidden"
             >
               <div className="px-4 py-6 space-y-4">
-                <Link to="/" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium text-slate-900">الرئيسية</Link>
-                <Link to="/about-us" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium text-slate-900">من نحن</Link>
-                <Link to="/own-property" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium text-slate-900">تملك عقارك</Link>
-                <Link to="/?type=sale" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium text-slate-900">عقارات للبيع</Link>
-                <Link to="/?type=rent" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium text-slate-900">عقارات للإيجار</Link>
+                <Link to="/" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium text-slate-900 dark:text-white">الرئيسية</Link>
+                <Link to="/about-us" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium text-slate-900 dark:text-white">من نحن</Link>
+                <Link to="/own-property" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium text-slate-900 dark:text-white">تملك عقارك</Link>
+                <Link to="/?type=sale" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium text-slate-900 dark:text-white">عقارات للبيع</Link>
+                <Link to="/?type=rent" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium text-slate-900 dark:text-white">عقارات للإيجار</Link>
                 <a
                   href={`https://wa.me/966544137950?text=${encodeURIComponent('السلام عليكم حاب اعرض عقاري عندكم')}`}
                   target="_blank"
@@ -781,25 +821,25 @@ function Layout({ children }: { children: React.ReactNode }) {
       {children}
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-white pt-20 pb-10">
+      <footer className="bg-slate-900 dark:bg-slate-950 text-white pt-20 pb-10 border-t border-slate-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             <div className="space-y-6">
               <div className="flex items-center gap-3">
-                <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center overflow-hidden">
+                <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center overflow-hidden">
                   <img
-                    src="https://i.ibb.co/6jH1zt6/IMG-5231.png"
+                    src="/favicon.png"
                     alt="Logo"
-                    className="w-full h-full object-contain scale-110"
+                    className="w-full h-full object-contain"
                     referrerPolicy="no-referrer"
                   />
                 </div>
                 <span className="text-2xl font-black tracking-tight">شعار العقارية</span>
               </div>
-              <p className="text-slate-400 leading-relaxed">
+              <p className="text-slate-400 dark:text-slate-500 leading-relaxed">
                 شعار العقارية, معتمدة من الهيئة العامة للعقار, تقدم مجموعة متكاملة من الخدمات العقارية مقّرهــا في مدينــة جــدة.
               </p>
-              <div className="space-y-3 text-slate-400 text-sm">
+              <div className="space-y-3 text-slate-400 dark:text-slate-500 text-sm">
                 <div className="flex items-center gap-3">
                   <Phone size={18} className="text-indigo-500" />
                   <a href="tel:0544137950" className="hover:text-white transition-colors">0544137950</a>
@@ -814,63 +854,41 @@ function Layout({ children }: { children: React.ReactNode }) {
                 </div>
               </div>
               <div className="flex gap-4">
-                <a href="https://twitter.com/nadabrokersa" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-600 transition-all"><Twitter size={20} /></a>
-                <a href="https://www.tiktok.com/@nadabrokersa" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-600 transition-all"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" /></svg></a>
-                <a href="https://instagram.com/nadabrokersa" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-600 transition-all"><Instagram size={20} /></a>
-                <a href="https://www.snapchat.com/add/nadabroker" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-600 transition-all"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-2.5 0-4.5 1.3-5.4 3.2-.3.7-.4 1.5-.4 2.3 0 .8.1 1.5.1 2.2 0 .3-.2.5-.5.6-.5.1-1 .3-1.3.5-.4.3-.5.7-.3 1.1.2.4.6.6 1 .7.3.1.7.1 1 .2.2 0 .3.2.3.4.1.5.2 1 .5 1.5.5.8 1.3 1.3 2.2 1.6.3.1.5.2.5.5 0 .3-.3.5-.6.6-1.1.4-2.3.7-2.5 1.3-.1.3 0 .6.3.8.5.3 1.2.4 1.8.5.2 0 .3.1.4.3.1.3.3.5.6.5.4.1.9 0 1.5-.2.5-.1 1-.2 1.6-.2s1.1.1 1.6.2c.6.2 1.1.3 1.5.2.3 0 .5-.2.6-.5.1-.2.2-.3.4-.3.6-.1 1.3-.2 1.8-.5.3-.2.4-.5.3-.8-.2-.6-1.4-.9-2.5-1.3-.3-.1-.6-.3-.6-.6 0-.3.2-.4.5-.5.9-.3 1.7-.8 2.2-1.6.3-.5.4-1 .5-1.5 0-.2.1-.4.3-.4.3-.1.7-.1 1-.2.4-.1.8-.3 1-.7.2-.4.1-.8-.3-1.1-.3-.2-.8-.4-1.3-.5-.3-.1-.5-.3-.5-.6 0-.7.1-1.4.1-2.2 0-.8-.1-1.6-.4-2.3C16.5 3.3 14.5 2 12 2z" /></svg></a>
+                <a href="https://twitter.com/nadabrokersa" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 dark:bg-slate-900 flex items-center justify-center hover:bg-indigo-600 transition-all shadow-sm"><Twitter size={20} /></a>
+                <a href="https://www.tiktok.com/@nadabrokersa" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 dark:bg-slate-900 flex items-center justify-center hover:bg-indigo-600 transition-all shadow-sm"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" /></svg></a>
+                <a href="https://instagram.com/nadabrokersa" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-800 dark:bg-slate-900 flex items-center justify-center hover:bg-indigo-600 transition-all shadow-sm"><Instagram size={20} /></a>
               </div>
             </div>
 
             <div>
               <h4 className="text-lg font-bold mb-6">روابط سريعة</h4>
-              <ul className="space-y-4 text-slate-400">
+              <ul className="space-y-4 text-slate-400 dark:text-slate-500">
                 <li><Link to="/about-us" className="hover:text-white transition-colors">من نحن</Link></li>
-                <li><a href="#" className="hover:text-white transition-colors">كيف نعمل</a></li>
                 <li><Link to="/privacy-policy" onClick={() => window.scrollTo(0, 0)} className="hover:text-white transition-colors">سياسة الخصوصية</Link></li>
+                <li><Link to="/?type=sale&category=apartment" onClick={() => window.scrollTo(0, 0)} className="hover:text-white transition-colors">شقق للبيع</Link></li>
+                <li><Link to="/?type=sale&category=villa" onClick={() => window.scrollTo(0, 0)} className="hover:text-white transition-colors">فلل للبيع</Link></li>
                 <li className="text-white font-bold mt-4 mb-2">اتصل بنا</li>
                 <li>
                   <a href="tel:0544137950" className="flex items-center gap-3 hover:text-white transition-colors">
-                    <Phone size={16} className="text-indigo-400" />
-                    <span>اتصال هاتفي</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://wa.me/966544137950" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-white transition-colors">
-                    <MessageCircle size={16} className="text-emerald-400" />
-                    <span>واتس اب</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="mailto:Nadabroker@aol.com" className="flex items-center gap-3 hover:text-white transition-colors">
-                    <Mail size={16} className="text-indigo-400" />
-                    <span>بريد إلكتروني</span>
+                    <Phone size={18} className="text-indigo-500" />
+                    <span>0544137950</span>
                   </a>
                 </li>
               </ul>
             </div>
 
-            <div>
-              <h4 className="text-lg font-bold mb-6">العقارات</h4>
-              <ul className="space-y-4 text-slate-400">
-                <li><Link to="/?category=apartment" onClick={() => window.scrollTo(0, 0)} className="hover:text-white transition-colors">شقق للبيع</Link></li>
-                <li><Link to="/?category=villa" onClick={() => window.scrollTo(0, 0)} className="hover:text-white transition-colors">فلل للبيع</Link></li>
-              </ul>
+            <div className="lg:col-span-2">
+              <h4 className="text-lg font-bold mb-6">معلومات قانونية</h4>
+              <div className="space-y-4 text-slate-400 dark:text-slate-500 text-sm">
+                <p>رخصة فال رقم: 1200027299</p>
+                <p>سجل تجاري: ٤٠٣٠٥٥٧٥٩٣</p>
+                <p>الهيئة العامة للعقار</p>
+              </div>
             </div>
           </div>
 
-          <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm">
-            <p>© {new Date().getFullYear()} شعار العقارية. جميع الحقوق محفوظة.</p>
-            <div className="flex flex-wrap justify-center gap-6">
-              <a
-                href="https://eservicesredp.rega.gov.sa/public/OfficesBroker/LicenseDetails/Bml/08dc7be6-55ec-4dbe-8640-fa3378858330"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
-              >
-                رخصة رقم: 1200027299
-              </a>
-              <span>س.ت: ٤٠٣٠٥٥٧٥٩٣</span>
-            </div>
+          <div className="pt-10 border-t border-slate-800/50 text-center text-slate-500 text-sm">
+            <p>© {new Date().getFullYear()} جميع الحقوق محفوظة لشركة شعار العقارية</p>
           </div>
         </div>
       </footer>

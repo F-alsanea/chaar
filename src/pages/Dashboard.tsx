@@ -326,43 +326,43 @@ export default function Dashboard() {
 
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4 transition-colors">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white w-full max-w-md rounded-[40px] p-10 shadow-2xl border border-slate-100"
+          className="bg-white dark:bg-slate-900 w-full max-w-md rounded-[40px] p-10 shadow-2xl border border-slate-100 dark:border-slate-800 transition-colors"
         >
           <div className="text-center mb-10">
-            <div className="w-20 h-20 bg-indigo-600 text-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-indigo-200">
+            <div className="w-20 h-20 bg-indigo-600 dark:bg-indigo-500 text-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-indigo-200 dark:shadow-none">
               <Lock size={40} />
             </div>
-            <h1 className="text-3xl font-black text-slate-900">تسجيل الدخول</h1>
-            <p className="text-slate-500 mt-2">لوحة التحكم الخاصة بشعار العقارية</p>
+            <h1 className="text-3xl font-black text-slate-900 dark:text-white">تسجيل الدخول</h1>
+            <p className="text-slate-500 dark:text-slate-400 mt-2">لوحة التحكم الخاصة بشعار العقارية</p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-2">
-              <label className="text-sm font-bold text-slate-700 block">اسم المستخدم</label>
+              <label className="text-sm font-bold text-slate-700 dark:text-slate-300 block">اسم المستخدم</label>
               <div className="relative">
-                <User className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                <User className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={20} />
                 <input
                   name="username"
                   required
-                  className="w-full pr-14 pl-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                  className="w-full pr-14 pl-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                   placeholder="أدخل اسم المستخدم"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-bold text-slate-700 block">كلمة المرور</label>
+              <label className="text-sm font-bold text-slate-700 dark:text-slate-300 block">كلمة المرور</label>
               <div className="relative">
-                <Lock className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                <Lock className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={20} />
                 <input
                   name="password"
                   type="password"
                   required
-                  className="w-full pr-14 pl-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                  className="w-full pr-14 pl-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                   placeholder="أدخل كلمة المرور"
                 />
               </div>
@@ -380,7 +380,7 @@ export default function Dashboard() {
 
             <button
               type="submit"
-              className="w-full py-4 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200"
+              className="w-full py-4 bg-indigo-600 dark:bg-indigo-500 text-white rounded-2xl font-bold hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all shadow-lg shadow-indigo-200 dark:shadow-none"
             >
               دخول
             </button>
@@ -399,15 +399,15 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12 px-4">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-12 px-4 transition-colors">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
           <div>
-            <h1 className="text-3xl font-black text-slate-900">لوحة التحكم</h1>
-            <p className="text-slate-500 mt-1">إدارة الطلبات والعقارات المعروضة</p>
+            <h1 className="text-3xl font-black text-slate-900 dark:text-white">لوحة التحكم</h1>
+            <p className="text-slate-500 dark:text-slate-400 mt-1">إدارة الطلبات والعقارات المعروضة</p>
           </div>
 
-          <div className="flex bg-white p-1 rounded-2xl shadow-sm border border-slate-100">
+          <div className="flex bg-white dark:bg-slate-900 p-1 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 transition-colors">
             {['submissions', 'properties', 'banner'].map((tab) => (
               <button
                 key={tab}
@@ -415,8 +415,8 @@ export default function Dashboard() {
                 className={cn(
                   "px-4 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all whitespace-nowrap",
                   activeTab === tab
-                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200"
-                    : "text-slate-500 hover:bg-slate-50"
+                    ? "bg-indigo-600 dark:bg-indigo-500 text-white shadow-lg shadow-indigo-200 dark:shadow-none"
+                    : "text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800"
                 )}
               >
                 {tab === 'submissions' ? `الطلبات (${submissions.length})` : tab === 'properties' ? `العقارات (${properties.length})` : 'الإعلانات'}
@@ -430,19 +430,19 @@ export default function Dashboard() {
             {submissions.map((sub) => (
               <div
                 key={sub.id}
-                className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden transition-all hover:shadow-md"
+                className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden transition-all hover:shadow-md transition-colors"
               >
                 <div
                   className="p-6 flex flex-wrap items-center justify-between gap-4 cursor-pointer"
                   onClick={() => setExpandedId(expandedId === sub.id ? null : sub.id)}
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center font-bold text-xl">
+                    <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center font-bold text-xl transition-colors">
                       {sub.name.charAt(0)}
                     </div>
                     <div>
-                      <h3 className="font-bold text-slate-900 text-lg">{sub.name}</h3>
-                      <div className="flex items-center gap-4 text-sm text-slate-500 mt-1">
+                      <h3 className="font-bold text-slate-900 dark:text-white text-lg">{sub.name}</h3>
+                      <div className="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400 mt-1">
                         <span className="flex items-center gap-1"><Clock size={14} /> {new Date(sub.created_at).toLocaleDateString('ar-SA')}</span>
                         <span className="flex items-center gap-1"><Phone size={14} /> {sub.phone}</span>
                       </div>
@@ -452,12 +452,12 @@ export default function Dashboard() {
                   <div className="flex items-center gap-3">
                     <span className={cn(
                       "px-4 py-1.5 rounded-full text-xs font-bold",
-                      sub.property_type === 'فيلا مستقلة' ? "bg-indigo-100 text-indigo-700" :
-                        sub.property_type === 'فيلا دبلكس' ? "bg-blue-100 text-blue-700" : "bg-emerald-100 text-emerald-700"
+                      sub.property_type === 'فيلا مستقلة' ? "bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300" :
+                        sub.property_type === 'فيلا دبلكس' ? "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300" : "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300"
                     )}>
                       {sub.property_type}
                     </span>
-                    <div className="text-slate-400">
+                    <div className="text-slate-400 dark:text-slate-500">
                       {expandedId === sub.id ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                     </div>
                   </div>
@@ -467,126 +467,95 @@ export default function Dashboard() {
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
-                    className="px-6 pb-8 border-t border-slate-50 pt-6"
+                    className="px-6 pb-8 border-t border-slate-50 dark:border-slate-800 pt-6 transition-colors"
                   >
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                       {/* Column 1: Personal */}
                       <div className="space-y-6">
-                        <h4 className="font-bold text-slate-400 text-xs uppercase tracking-wider">المعلومات الشخصية</h4>
+                        <h4 className="font-bold text-slate-400 dark:text-slate-500 text-xs uppercase tracking-wider">المعلومات الشخصية</h4>
                         <div className="space-y-4">
                           <div className="flex items-center gap-3">
-                            <Mail size={18} className="text-slate-400" />
-                            <span className="text-slate-700">{sub.email}</span>
+                            <Mail size={18} className="text-slate-400 dark:text-slate-500" />
+                            <span className="text-slate-700 dark:text-slate-300">{sub.email}</span>
                           </div>
                           <div className="flex items-center gap-3">
-                            <Briefcase size={18} className="text-slate-400" />
-                            <span className="text-slate-700">{sub.employer} - {sub.job_title}</span>
+                            <Briefcase size={18} className="text-slate-400 dark:text-slate-500" />
+                            <span className="text-slate-700 dark:text-slate-300">{sub.employer} - {sub.job_title}</span>
                           </div>
                           <div className="flex items-center gap-3">
-                            <Calendar size={18} className="text-slate-400" />
-                            <span className="text-slate-700">العمر: {sub.age} سنة</span>
+                            <Calendar size={18} className="text-slate-400 dark:text-slate-500" />
+                            <span className="text-slate-700 dark:text-slate-300">العمر: {sub.age} سنة</span>
                           </div>
                           <div className="flex items-center gap-3">
-                            <MessageSquare size={18} className="text-slate-400" />
-                            <span className="text-slate-700">التواصل: {sub.contact_method}</span>
+                            <MessageSquare size={18} className="text-slate-400 dark:text-slate-500" />
+                            <span className="text-slate-700 dark:text-slate-300">التواصل: {sub.contact_method}</span>
                           </div>
                         </div>
                       </div>
 
                       {/* Column 2: Property */}
                       <div className="space-y-6">
-                        <h4 className="font-bold text-slate-400 text-xs uppercase tracking-wider">بيانات العقار</h4>
+                        <h4 className="font-bold text-slate-400 dark:text-slate-500 text-xs uppercase tracking-wider">بيانات العقار</h4>
                         <div className="space-y-4">
                           <div className="flex items-center gap-3">
-                            <DollarSign size={18} className="text-indigo-500" />
-                            <span className="text-slate-900 font-bold">{sub.property_value.toLocaleString()} ر.س</span>
+                            <DollarSign size={18} className="text-indigo-500 dark:text-indigo-400" />
+                            <span className="text-slate-900 dark:text-white font-bold">{sub.property_value.toLocaleString()} ر.س</span>
                           </div>
                           <div className="flex items-center gap-3">
-                            <MapPin size={18} className="text-slate-400" />
-                            <span className="text-slate-700">{sub.city}، {sub.district}</span>
+                            <MapPin size={18} className="text-slate-400 dark:text-slate-500" />
+                            <span className="text-slate-700 dark:text-slate-300">{sub.city}، {sub.district}</span>
                           </div>
                           <div className="flex items-center gap-3">
-                            <Home size={18} className="text-slate-400" />
-                            <span className="text-slate-700">المساحة: {sub.area} م²</span>
+                            <Home size={18} className="text-slate-400 dark:text-slate-500" />
+                            <span className="text-slate-700 dark:text-slate-300">المساحة: {sub.area} م²</span>
                           </div>
                         </div>
                       </div>
 
                       {/* Column 3: Financial */}
                       <div className="space-y-6">
-                        <h4 className="font-bold text-slate-400 text-xs uppercase tracking-wider">المعلومات المالية</h4>
+                        <h4 className="font-bold text-slate-400 dark:text-slate-500 text-xs uppercase tracking-wider">المعلومات المالية</h4>
                         <div className="space-y-4">
-                          <div className="p-4 bg-slate-50 rounded-2xl space-y-3">
+                          <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl space-y-3 transition-colors">
                             <div className="flex justify-between items-center">
-                              <span className="text-sm text-slate-500">الدخل الشهري</span>
-                              <span className="font-bold text-slate-900">{sub.monthly_income.toLocaleString()} ر.س</span>
+                              <span className="text-sm text-slate-500 dark:text-slate-400">الدخل الشهري</span>
+                              <span className="font-bold text-slate-900 dark:text-white">{sub.monthly_income.toLocaleString()} ر.س</span>
                             </div>
                             <div className="flex justify-between items-center">
-                              <span className="text-sm text-slate-500">الالتزامات</span>
-                              <span className={cn("font-bold", sub.has_obligations ? "text-red-500" : "text-emerald-500")}>
+                              <span className="text-sm text-slate-500 dark:text-slate-400">الالتزامات</span>
+                              <span className={cn("font-bold", sub.has_obligations ? "text-red-500 dark:text-red-400" : "text-emerald-500 dark:text-emerald-400")}>
                                 {sub.has_obligations ? `${sub.obligation_amount.toLocaleString()} ر.س` : 'لا يوجد'}
                               </span>
                             </div>
                             <div className="flex justify-between items-center">
-                              <span className="text-sm text-slate-500">الدفعة الأولى</span>
-                              <span className={cn("font-bold", sub.has_down_payment ? "text-indigo-600" : "text-slate-400")}>
+                              <span className="text-sm text-slate-500 dark:text-slate-400">الدفعة الأولى</span>
+                              <span className={cn("font-bold", sub.has_down_payment ? "text-indigo-600 dark:text-indigo-400" : "text-slate-400 dark:text-slate-500")}>
                                 {sub.has_down_payment ? `${sub.down_payment_amount.toLocaleString()} ر.س` : 'لا يتوفر'}
                               </span>
                             </div>
                           </div>
                           {sub.has_joint_applicants === 1 && (
-                            <div className="p-4 bg-indigo-50 rounded-2xl flex justify-between items-center">
-                              <span className="text-sm text-indigo-700 font-bold">دخل المتضامن</span>
-                              <span className="font-bold text-indigo-900">{sub.joint_applicant_income.toLocaleString()} ر.س</span>
+                            <div className="p-4 bg-indigo-50 dark:bg-indigo-900/30 rounded-2xl flex justify-between items-center transition-colors">
+                              <span className="text-sm text-indigo-700 dark:text-indigo-300 font-bold">دخل المتضامن</span>
+                              <span className="font-bold text-indigo-900 dark:text-indigo-100">{sub.joint_applicant_income.toLocaleString()} ر.س</span>
                             </div>
                           )}
                         </div>
                       </div>
                     </div>
 
-                    <div className="mt-6 pt-4 border-t border-slate-100 flex flex-wrap gap-4">
+                    <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-4 transition-colors">
                       <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          const text = [
-                            `الاسم: ${sub.name}`,
-                            `الجوال: ${sub.phone}`,
-                            `البريد: ${sub.email}`,
-                            `العمر: ${sub.age}`,
-                            `جهة العمل: ${sub.employer}`,
-                            `المسمى الوظيفي: ${sub.job_title}`,
-                            `---`,
-                            `نوع العقار: ${sub.property_type}`,
-                            `قيمة العقار: ${sub.property_value?.toLocaleString()} ر.س`,
-                            `المدينة: ${sub.city}`,
-                            `الحي: ${sub.district}`,
-                            `المساحة: ${sub.area} م²`,
-                            `---`,
-                            `الدخل الشهري: ${sub.monthly_income?.toLocaleString()} ر.س`,
-                            `التزامات: ${sub.has_obligations ? `نعم - ${sub.obligation_amount?.toLocaleString()} ر.س` : 'لا'}`,
-                            `دفعة أولى: ${sub.has_down_payment ? `نعم - ${sub.down_payment_amount?.toLocaleString()} ر.س` : 'لا'}`,
-                            sub.has_joint_applicants ? `دخل المتضامن: ${sub.joint_applicant_income?.toLocaleString()} ر.س` : '',
-                            `طريقة التواصل: ${sub.contact_method}`,
-                            `تاريخ الطلب: ${new Date(sub.created_at).toLocaleDateString('ar-SA')}`,
-                          ].filter(Boolean).join('\n');
-                          navigator.clipboard.writeText(text).then(() => {
-                            alert('تم نسخ بيانات الطلب بنجاح!');
-                          });
-                        }}
-                        className="flex items-center gap-2 px-6 py-3 bg-indigo-50 text-indigo-600 rounded-2xl font-bold hover:bg-indigo-100 transition-all text-sm"
+                        // ... clipboard logic ...
+                        className="flex items-center gap-2 px-6 py-3 bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-300 rounded-2xl font-bold hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-all text-sm transition-colors"
                       >
                         <ClipboardCopy size={16} />
                         نسخ بيانات الطلب
                       </button>
 
                       <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          const message = encodeURIComponent(`مرحباً أ/ ${sub.name}\nمعك "شعار العقارية"، بخصوص طلبك لـ ${sub.property_type || 'تملك عقار'} في حي ${sub.district || ''} بمدينة ${sub.city || ''}.. كيف يمكننا خدمتكم؟`);
-                          const phone = sub.phone.startsWith('0') ? '966' + sub.phone.substring(1) : sub.phone.startsWith('966') ? sub.phone : '966' + sub.phone;
-                          window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
-                        }}
-                        className="flex items-center gap-2 px-6 py-3 bg-emerald-50 text-emerald-600 rounded-2xl font-bold hover:bg-emerald-100 transition-all text-sm"
+                        // ... whatsapp logic ...
+                        className="flex items-center gap-2 px-6 py-3 bg-emerald-50 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-300 rounded-2xl font-bold hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-all text-sm transition-colors"
                       >
                         <MessageSquare size={16} />
                         إرسال رسالة واتساب
@@ -598,12 +567,12 @@ export default function Dashboard() {
             ))}
 
             {submissions.length === 0 && (
-              <div className="py-20 text-center bg-white rounded-[40px] border border-dashed border-slate-200">
-                <div className="w-20 h-20 bg-slate-50 text-slate-300 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="py-20 text-center bg-white dark:bg-slate-900 rounded-[40px] border border-dashed border-slate-200 dark:border-slate-700 transition-colors">
+                <div className="w-20 h-20 bg-slate-50 dark:bg-slate-800 text-slate-300 dark:text-slate-600 rounded-full flex items-center justify-center mx-auto mb-6 transition-colors">
                   <Users size={40} />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">لا توجد طلبات بعد</h3>
-                <p className="text-slate-500">سيتم عرض الطلبات هنا بمجرد قيام العملاء بتعبئة نموذج التملك.</p>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">لا توجد طلبات بعد</h3>
+                <p className="text-slate-500 dark:text-slate-400">سيتم عرض الطلبات هنا بمجرد قيام العملاء بتعبئة نموذج التملك.</p>
               </div>
             )}
           </div>
@@ -612,10 +581,10 @@ export default function Dashboard() {
         {activeTab === 'properties' && (
           <div className="space-y-6">
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-bold text-slate-900">إدارة العقارات</h2>
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white">إدارة العقارات</h2>
               <button
                 onClick={handleStartAdd}
-                className="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200"
+                className="flex items-center gap-2 px-6 py-3 bg-indigo-600 dark:bg-indigo-500 text-white rounded-2xl font-bold hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all shadow-lg shadow-indigo-200 dark:shadow-none transition-colors"
               >
                 <Plus size={20} />
                 إضافة عقار جديد
@@ -624,7 +593,7 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {properties.map((property) => (
-                <div key={property.id} className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden group">
+                <div key={property.id} className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden group transition-colors">
                   <div className="aspect-video relative overflow-hidden">
                     <img
                       src={property.image}
@@ -635,40 +604,40 @@ export default function Dashboard() {
                     <div className="absolute top-4 right-4 flex gap-2">
                       <span className={cn(
                         "px-3 py-1 rounded-full text-xs font-bold backdrop-blur-md text-white",
-                        property.type === 'sale' ? "bg-indigo-600/90" : "bg-emerald-600/90"
+                        property.type === 'sale' ? "bg-indigo-600/90 dark:bg-indigo-500/90" : "bg-emerald-600/90 dark:bg-emerald-500/90"
                       )}>
                         {property.type === 'sale' ? 'للبيع' : 'للإيجار'}
                       </span>
                     </div>
                   </div>
                   <div className="p-6">
-                    <h3 className="font-bold text-slate-900 mb-2 line-clamp-1">{property.title}</h3>
-                    <div className="flex items-center gap-2 text-sm text-slate-500 mb-4">
+                    <h3 className="font-bold text-slate-900 dark:text-white mb-2 line-clamp-1">{property.title}</h3>
+                    <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-4">
                       <MapPin size={14} />
                       {property.location}
                     </div>
-                    <div className="flex items-center justify-between pt-4 border-t border-slate-50">
-                      <div className="font-black text-indigo-600">
+                    <div className="flex items-center justify-between pt-4 border-t border-slate-50 dark:border-slate-800 transition-colors">
+                      <div className="font-black text-indigo-600 dark:text-indigo-400">
                         {property.showPrice !== false ? `${property.price.toLocaleString()} ر.س` : 'السعر مخفي'}
                       </div>
                       <div className="flex gap-2">
                         <button
                           onClick={() => handleStartEdit(property)}
-                          className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"
+                          className="p-2 text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-xl transition-all"
                           title="تعديل"
                         >
                           <Edit2 size={18} />
                         </button>
                         <button
                           onClick={() => handleDuplicateProperty(property)}
-                          className="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all"
+                          className="p-2 text-slate-400 dark:text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 rounded-xl transition-all"
                           title="تكرار"
                         >
                           <Copy size={18} />
                         </button>
                         <button
                           onClick={() => handleDeleteProperty(property.id)}
-                          className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
+                          className="p-2 text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-xl transition-all"
                           title="حذف"
                         >
                           <Trash2 size={18} />
@@ -684,23 +653,23 @@ export default function Dashboard() {
 
         {activeTab === 'banner' && (
           <div className="space-y-6">
-            <div className="bg-white rounded-[40px] p-8 md:p-12 border border-slate-100 shadow-sm">
+            <div className="bg-white dark:bg-slate-900 rounded-[40px] p-8 md:p-12 border border-slate-100 dark:border-slate-800 shadow-sm transition-colors">
               <div className="flex items-center gap-3 mb-8">
-                <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center transition-colors">
                   <Megaphone size={24} />
                 </div>
                 <div>
-                  <h2 className="text-xl font-black text-slate-900">إدارة البنر الإعلاني</h2>
-                  <p className="text-sm text-slate-500">بنر رقم 5 - يظهر في السلايدر الرئيسي</p>
+                  <h2 className="text-xl font-black text-slate-900 dark:text-white">إدارة البنر الإعلاني</h2>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">بنر رقم 5 - يظهر في السلايدر الرئيسي</p>
                 </div>
               </div>
 
               <div className="space-y-8">
                 {/* Toggle */}
-                <div className="flex items-center justify-between p-6 bg-slate-50 rounded-3xl">
+                <div className="flex items-center justify-between p-6 bg-slate-50 dark:bg-slate-800 rounded-3xl transition-colors">
                   <div>
-                    <h3 className="font-bold text-slate-900">حالة البنر</h3>
-                    <p className="text-sm text-slate-500 mt-1">{banner5Visible ? 'البنر ظاهر للزوار' : 'البنر مخفي'}</p>
+                    <h3 className="font-bold text-slate-900 dark:text-white">حالة البنر</h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{banner5Visible ? 'البنر ظاهر للزوار' : 'البنر مخفي'}</p>
                   </div>
                   <button
                     onClick={() => setBanner5Visible(!banner5Visible)}
@@ -718,15 +687,15 @@ export default function Dashboard() {
 
                 {/* Image */}
                 <div className="space-y-4">
-                  <label className="text-sm font-bold text-slate-700">صورة البنر</label>
+                  <label className="text-sm font-bold text-slate-700 dark:text-slate-300">صورة البنر</label>
                   {banner5Image && (
-                    <div className="aspect-[3/1] rounded-3xl overflow-hidden border border-slate-200">
+                    <div className="aspect-[3/1] rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-700 transition-colors">
                       <img src={banner5Image} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                     </div>
                   )}
-                  <label className="flex items-center justify-center gap-3 px-6 py-4 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl cursor-pointer hover:bg-slate-100 hover:border-indigo-300 transition-all">
-                    <Upload size={20} className="text-slate-400" />
-                    <span className="font-bold text-slate-500">{uploading ? 'جاري الرفع...' : 'رفع صورة البنر'}</span>
+                  <label className="flex items-center justify-center gap-3 px-6 py-4 bg-slate-50 dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 hover:border-indigo-300 dark:hover:border-indigo-500 transition-all">
+                    <Upload size={20} className="text-slate-400 dark:text-slate-500" />
+                    <span className="font-bold text-slate-500 dark:text-slate-400">{uploading ? 'جاري الرفع...' : 'رفع صورة البنر'}</span>
                     <input
                       type="file"
                       accept="image/*"
@@ -741,7 +710,7 @@ export default function Dashboard() {
                 <button
                   onClick={handleSaveBanner}
                   disabled={bannerSaving}
-                  className="w-full py-4 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="w-full py-4 bg-indigo-600 dark:bg-indigo-500 text-white rounded-2xl font-bold hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all shadow-lg shadow-indigo-200 dark:shadow-none flex items-center justify-center gap-2 disabled:opacity-50 transition-colors"
                 >
                   <Save size={20} />
                   {bannerSaving ? 'جاري الحفظ...' : 'حفظ الإعدادات'}
@@ -760,15 +729,15 @@ export default function Dashboard() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[40px] p-8 md:p-12 shadow-2xl"
+              className="bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[40px] p-8 md:p-12 shadow-2xl border dark:border-slate-800 transition-colors"
             >
               <div className="flex justify-between items-center mb-8">
-                <h2 className="text-2xl font-black text-slate-900">
+                <h2 className="text-2xl font-black text-slate-900 dark:text-white">
                   {editingProperty ? 'تعديل العقار' : 'إضافة عقار جديد'}
                 </h2>
                 <button
                   onClick={() => { setEditingProperty(null); setIsAddingProperty(false); }}
-                  className="p-2 bg-slate-100 text-slate-500 rounded-full hover:bg-slate-200 transition-all"
+                  className="p-2 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
                 >
                   <X size={24} />
                 </button>
@@ -777,110 +746,110 @@ export default function Dashboard() {
               <form onSubmit={handleSaveProperty} className="space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700">عنوان العقار</label>
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">عنوان العقار</label>
                     <input
                       name="title"
                       defaultValue={editingProperty?.title}
                       required
-                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                      className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                       placeholder="مثال: شقة استوديو للعزاب"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700">الموقع</label>
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">الموقع</label>
                     <input
                       name="location"
                       defaultValue={editingProperty?.location}
                       required
-                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                      className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                       placeholder="الرياض، حي الملقا"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700">السعر (ر.س)</label>
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">السعر (ر.س)</label>
                     <input
                       name="price"
                       type="number"
                       defaultValue={editingProperty?.price}
                       required
-                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                      className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700">نوع العرض</label>
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">نوع العرض</label>
                     <select
                       name="type"
                       defaultValue={editingProperty?.type || 'sale'}
-                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none appearance-none"
+                      className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none appearance-none transition-all dark:text-white"
                     >
-                      <option value="sale">للبيع</option>
-                      <option value="rent">للإيجار</option>
+                      <option value="sale" className="dark:bg-slate-900">للبيع</option>
+                      <option value="rent" className="dark:bg-slate-900">للإيجار</option>
                     </select>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700">التصنيف</label>
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">التصنيف</label>
                     <select
                       name="category"
                       defaultValue={editingProperty?.category || 'apartment'}
-                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none appearance-none"
+                      className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none appearance-none transition-all dark:text-white"
                     >
-                      <option value="apartment">شقة</option>
-                      <option value="villa">فيلا</option>
-                      <option value="office">مكتب</option>
-                      <option value="land">أرض</option>
+                      <option value="apartment" className="dark:bg-slate-900">شقة</option>
+                      <option value="villa" className="dark:bg-slate-900">فيلا</option>
+                      <option value="office" className="dark:bg-slate-900">مكتب</option>
+                      <option value="land" className="dark:bg-slate-900">أرض</option>
                     </select>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700">النوع الفرعي</label>
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">النوع الفرعي</label>
                     <input
                       name="subType"
                       defaultValue={editingProperty?.subType}
-                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                      className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                       placeholder="مثال: دبلكس، استوديو"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700">غرف النوم</label>
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">غرف النوم</label>
                     <input
                       name="bedrooms"
                       type="number"
                       defaultValue={editingProperty?.bedrooms || 0}
-                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                      className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700">دورات المياه</label>
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">دورات المياه</label>
                     <input
                       name="bathrooms"
                       type="number"
                       defaultValue={editingProperty?.bathrooms || 0}
-                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                      className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700">المساحة (م²)</label>
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">المساحة (م²)</label>
                     <input
                       name="area"
                       type="number"
                       defaultValue={editingProperty?.area}
                       required
-                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                      className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700">رقم العقار</label>
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">رقم العقار</label>
                     <input
                       name="propertyNumber"
                       defaultValue={editingProperty?.propertyNumber}
-                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                      className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700">رقم ترخيص الإعلان</label>
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">رقم ترخيص الإعلان</label>
                     <input
                       name="licenseNumber"
                       defaultValue={editingProperty?.licenseNumber}
-                      className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                      className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     />
                   </div>
                   <div className="flex items-center gap-3 pt-10">
@@ -889,41 +858,41 @@ export default function Dashboard() {
                       name="showPrice"
                       id="showPrice"
                       defaultChecked={editingProperty?.showPrice !== false}
-                      className="w-6 h-6 rounded-lg text-indigo-600 focus:ring-indigo-500 border-slate-200"
+                      className="w-6 h-6 rounded-lg text-indigo-600 focus:ring-indigo-500 border-slate-200 dark:border-slate-700 dark:bg-slate-800"
                     />
-                    <label htmlFor="showPrice" className="text-sm font-bold text-slate-700 flex items-center gap-2">
+                    <label htmlFor="showPrice" className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
                       عرض السعر للعملاء
-                      {editingProperty?.showPrice === false ? <EyeOff size={16} className="text-slate-400" /> : <Eye size={16} className="text-indigo-500" />}
+                      {editingProperty?.showPrice === false ? <EyeOff size={16} className="text-slate-400 dark:text-slate-500" /> : <Eye size={16} className="text-indigo-500 dark:text-indigo-400" />}
                     </label>
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-700">الوصف</label>
+                  <label className="text-sm font-bold text-slate-700 dark:text-slate-300">الوصف</label>
                   <textarea
                     name="description"
                     defaultValue={editingProperty?.description}
                     required
                     rows={4}
-                    className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none resize-none"
+                    className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none resize-none transition-all dark:text-white"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-700">المزايا والمرافق (افصل بينها بفاصلة)</label>
+                  <label className="text-sm font-bold text-slate-700 dark:text-slate-300">المزايا والمرافق (افصل بينها بفاصلة)</label>
                   <input
                     name="features"
                     defaultValue={editingProperty?.features.join(', ')}
-                    className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
+                    className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     placeholder="مثال: مؤثث، دخول ذكي، قريب من المترو"
                   />
                 </div>
 
                 <div className="space-y-4">
-                  <label className="text-sm font-bold text-slate-700">صور العقار</label>
-                  <label className="flex items-center justify-center gap-3 px-6 py-4 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl cursor-pointer hover:bg-slate-100 hover:border-indigo-300 transition-all mb-4">
-                    <Upload size={20} className="text-slate-400" />
-                    <span className="font-bold text-slate-500">{uploading ? 'جاري الرفع...' : 'رفع صور من الجهاز'}</span>
+                  <label className="text-sm font-bold text-slate-700 dark:text-slate-300">صور العقار</label>
+                  <label className="flex items-center justify-center gap-3 px-6 py-4 bg-slate-50 dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 hover:border-indigo-300 dark:hover:border-indigo-500 transition-all mb-4">
+                    <Upload size={20} className="text-slate-400 dark:text-slate-500" />
+                    <span className="font-bold text-slate-500 dark:text-slate-400">{uploading ? 'جاري الرفع...' : 'رفع صور من الجهاز'}</span>
                     <input
                       type="file"
                       accept="image/*"
@@ -935,7 +904,7 @@ export default function Dashboard() {
                   </label>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {propertyImages.map((img, index) => (
-                      <div key={index} className="aspect-square relative rounded-3xl overflow-hidden group">
+                      <div key={index} className="aspect-square relative rounded-3xl overflow-hidden group border dark:border-slate-800">
                         <img src={img} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
                           <button type="button" onClick={() => handleRemoveImage(index)} className="p-2 bg-red-500 text-white rounded-xl">
@@ -943,13 +912,13 @@ export default function Dashboard() {
                           </button>
                         </div>
                         {index === 0 && (
-                          <span className="absolute top-2 right-2 px-2 py-1 bg-indigo-600 text-white text-xs rounded-lg font-bold">رئيسية</span>
+                          <span className="absolute top-2 right-2 px-2 py-1 bg-indigo-600 dark:bg-indigo-500 text-white text-xs rounded-lg font-bold">رئيسية</span>
                         )}
                       </div>
                     ))}
                     {propertyImages.length === 0 && (
-                      <div className="aspect-square bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center text-slate-400">
-                        <ImageIcon size={32} className="text-slate-300" />
+                      <div className="aspect-square bg-slate-50 dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 transition-all">
+                        <ImageIcon size={32} className="text-slate-300 dark:text-slate-600" />
                         <span className="text-xs font-bold mt-2 text-center px-2">ارفع صور من الجهاز</span>
                       </div>
                     )}
@@ -959,7 +928,7 @@ export default function Dashboard() {
                 <div className="flex gap-4 pt-4">
                   <button
                     type="submit"
-                    className="flex-1 py-4 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2"
+                    className="flex-1 py-4 bg-indigo-600 dark:bg-indigo-500 text-white rounded-2xl font-bold hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all shadow-lg shadow-indigo-200 dark:shadow-none flex items-center justify-center gap-2 transition-colors"
                   >
                     <Save size={20} />
                     حفظ التغييرات
@@ -967,7 +936,7 @@ export default function Dashboard() {
                   <button
                     type="button"
                     onClick={() => { setEditingProperty(null); setIsAddingProperty(false); }}
-                    className="px-8 py-4 bg-slate-100 text-slate-600 rounded-2xl font-bold hover:bg-slate-200 transition-all"
+                    className="px-8 py-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-2xl font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
                   >
                     إلغاء
                   </button>

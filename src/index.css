@@ -5,7 +5,7 @@
   --font-sans: "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
-  
+
   --color-indigo-50: #f9fafb;
   --color-indigo-100: #f3f4f6;
   --color-indigo-200: #e5e7eb;
@@ -16,19 +16,39 @@
   --color-indigo-700: #030712;
   --color-indigo-800: #000000;
   --color-indigo-900: #000000;
+
+  /* Dark Mode specific colors if needed as variables */
+  --color-dark-bg: #0f172a;
+  /* slate-900 */
+  --color-dark-surface: #1e293b;
+  /* slate-800 */
+  --color-dark-border: #334155;
+  /* slate-700 */
 }
 
 @layer base {
   body {
-    @apply font-sans bg-slate-50 text-slate-900 antialiased;
+    @apply font-sans bg-slate-50 text-slate-900 antialiased transition-colors duration-300;
     direction: rtl;
+  }
+
+  .dark body {
+    @apply bg-slate-950 text-slate-100;
   }
 }
 
 .glass {
-  @apply bg-white/80 backdrop-blur-md border border-white/20;
+  @apply bg-white/80 backdrop-blur-md border border-white/20 transition-colors duration-300;
+}
+
+.dark .glass {
+  @apply bg-slate-900/80 border-slate-800/50 text-white;
 }
 
 .property-card-shadow {
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+}
+
+.dark .property-card-shadow {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 }

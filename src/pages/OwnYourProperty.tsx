@@ -68,22 +68,22 @@ export default function OwnYourProperty() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4 transition-colors">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="max-w-md w-full bg-white p-12 rounded-[40px] shadow-2xl text-center"
+          className="max-w-md w-full bg-white dark:bg-slate-900 p-12 rounded-[40px] shadow-2xl text-center border dark:border-slate-800 transition-colors"
         >
-          <div className="w-24 h-24 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-8">
+          <div className="w-24 h-24 bg-emerald-100 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-8">
             <CheckCircle2 size={48} />
           </div>
-          <h2 className="text-3xl font-black text-slate-900 mb-4">شكراً لك!</h2>
-          <p className="text-lg text-slate-600 mb-10 leading-relaxed">
+          <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-4">شكراً لك!</h2>
+          <p className="text-lg text-slate-600 dark:text-slate-400 mb-10 leading-relaxed">
             تم استلام طلبك بنجاح. سيقوم فريق المبيعات بالتواصل معك في أقرب وقت ممكن لمتابعة إجراءات تملك عقارك.
           </p>
           <Link
             to="/"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition-all"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-indigo-600 dark:bg-indigo-500 text-white rounded-2xl font-bold hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all"
           >
             <span>العودة للرئيسية</span>
             <ArrowRight size={18} />
@@ -94,32 +94,32 @@ export default function OwnYourProperty() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-20 px-4">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-20 px-4 transition-colors">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-black text-slate-900 mb-4">تملك عقارك</h1>
-          <p className="text-slate-500 text-lg">املأ النموذج التالي وسنقوم بدراسة طلبك وتقديم أفضل الحلول التمويلية لك</p>
+          <h1 className="text-4xl font-black text-slate-900 dark:text-white mb-4">تملك عقارك</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-lg">املأ النموذج التالي وسنقوم بدراسة طلبك وتقديم أفضل الحلول التمويلية لك</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Personal Information */}
-          <section className="bg-white p-8 md:p-10 rounded-[32px] shadow-xl shadow-slate-200/50 border border-slate-100">
+          <section className="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-[32px] shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 transition-colors">
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center">
                 <User size={20} />
               </div>
-              <h2 className="text-2xl font-bold text-slate-900">المعلومات الشخصية</h2>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">المعلومات الشخصية</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-sm font-bold text-slate-700">الاسم الكامل</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">الاسم الكامل</label>
                 <div className="relative">
-                  <UserCircle className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                  <UserCircle className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={18} />
                   <input
                     required
                     type="text"
-                    className="w-full pr-12 pl-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                    className="w-full pr-12 pl-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     placeholder="أدخل اسمك الثلاثي"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -128,13 +128,13 @@ export default function OwnYourProperty() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-bold text-slate-700">البريد الإلكتروني</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">البريد الإلكتروني</label>
                 <div className="relative">
-                  <Mail className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                  <Mail className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={18} />
                   <input
                     required
                     type="email"
-                    className="w-full pr-12 pl-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                    className="w-full pr-12 pl-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     placeholder="example@mail.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -143,13 +143,13 @@ export default function OwnYourProperty() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-bold text-slate-700">جهة العمل</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">جهة العمل</label>
                 <div className="relative">
-                  <Briefcase className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                  <Briefcase className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={18} />
                   <input
                     required
                     type="text"
-                    className="w-full pr-12 pl-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                    className="w-full pr-12 pl-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     placeholder="اسم الشركة أو الوزارة"
                     value={formData.employer}
                     onChange={(e) => setFormData({ ...formData, employer: e.target.value })}
@@ -158,13 +158,13 @@ export default function OwnYourProperty() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-bold text-slate-700">المسمى الوظيفي</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">المسمى الوظيفي</label>
                 <div className="relative">
-                  <UserCircle className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                  <UserCircle className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={18} />
                   <input
                     required
                     type="text"
-                    className="w-full pr-12 pl-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                    className="w-full pr-12 pl-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     placeholder="مثال: مهندس برمجيات"
                     value={formData.jobTitle}
                     onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
@@ -173,13 +173,13 @@ export default function OwnYourProperty() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-bold text-slate-700">العمر</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">العمر</label>
                 <div className="relative">
-                  <Calendar className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                  <Calendar className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={18} />
                   <input
                     required
                     type="text"
-                    className="w-full pr-12 pl-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                    className="w-full pr-12 pl-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     placeholder="أدخل عمرك"
                     value={formData.age}
                     onChange={(e) => setFormData({ ...formData, age: e.target.value })}
@@ -188,13 +188,13 @@ export default function OwnYourProperty() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-bold text-slate-700">رقم الجوال</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">رقم الجوال</label>
                 <div className="relative">
-                  <Phone className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                  <Phone className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={18} />
                   <input
                     required
                     type="tel"
-                    className="w-full pr-12 pl-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                    className="w-full pr-12 pl-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     placeholder="05xxxxxxxx"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -205,17 +205,17 @@ export default function OwnYourProperty() {
           </section>
 
           {/* Property Data */}
-          <section className="bg-white p-8 md:p-10 rounded-[32px] shadow-xl shadow-slate-200/50 border border-slate-100">
+          <section className="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-[32px] shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 transition-colors">
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-xl flex items-center justify-center">
                 <Home size={20} />
               </div>
-              <h2 className="text-2xl font-bold text-slate-900">بيانات العقار</h2>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">بيانات العقار</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2 md:col-span-2">
-                <label className="text-sm font-bold text-slate-700">نوع العقار</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">نوع العقار</label>
                 <div className="grid grid-cols-3 gap-4">
                   {['فيلا مستقلة', 'فيلا دبلكس', 'شقة'].map((type) => (
                     <button
@@ -223,10 +223,10 @@ export default function OwnYourProperty() {
                       type="button"
                       onClick={() => setFormData({ ...formData, propertyType: type })}
                       className={cn(
-                        "py-4 rounded-2xl font-bold border transition-all",
+                        "py-3 md:py-4 rounded-2xl font-bold border transition-all text-sm md:text-base",
                         formData.propertyType === type
-                          ? "bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-200"
-                          : "bg-slate-50 border-slate-100 text-slate-600 hover:border-slate-300"
+                          ? "bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-200 dark:shadow-none"
+                          : "bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600"
                       )}
                     >
                       {type}
@@ -236,13 +236,13 @@ export default function OwnYourProperty() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-bold text-slate-700">قيمة العقار المتوقعة</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">قيمة العقار المتوقعة</label>
                 <div className="relative">
-                  <DollarSign className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                  <DollarSign className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={18} />
                   <input
                     required
                     type="text"
-                    className="w-full pr-12 pl-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                    className="w-full pr-12 pl-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     placeholder="ر.س"
                     value={formData.propertyValue}
                     onChange={(e) => setFormData({ ...formData, propertyValue: e.target.value })}
@@ -251,13 +251,13 @@ export default function OwnYourProperty() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-bold text-slate-700">المساحة</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">المساحة</label>
                 <div className="relative">
-                  <Maximize className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                  <Maximize className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={18} />
                   <input
                     required
                     type="text"
-                    className="w-full pr-12 pl-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                    className="w-full pr-12 pl-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     placeholder="م²"
                     value={formData.area}
                     onChange={(e) => setFormData({ ...formData, area: e.target.value })}
@@ -266,13 +266,13 @@ export default function OwnYourProperty() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-bold text-slate-700">المدينة</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">المدينة</label>
                 <div className="relative">
-                  <MapPin className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                  <MapPin className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={18} />
                   <input
                     required
                     type="text"
-                    className="w-full pr-12 pl-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                    className="w-full pr-12 pl-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     placeholder="مثال: جدة"
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
@@ -281,13 +281,13 @@ export default function OwnYourProperty() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-bold text-slate-700">الحي</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">الحي</label>
                 <div className="relative">
-                  <MapPin className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                  <MapPin className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={18} />
                   <input
                     required
                     type="text"
-                    className="w-full pr-12 pl-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                    className="w-full pr-12 pl-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     placeholder="مثال: حي الشاطئ"
                     value={formData.district}
                     onChange={(e) => setFormData({ ...formData, district: e.target.value })}
@@ -298,23 +298,23 @@ export default function OwnYourProperty() {
           </section>
 
           {/* Financial Information */}
-          <section className="bg-white p-8 md:p-10 rounded-[32px] shadow-xl shadow-slate-200/50 border border-slate-100">
+          <section className="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-[32px] shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 transition-colors">
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-xl flex items-center justify-center">
                 <Wallet size={20} />
               </div>
-              <h2 className="text-2xl font-bold text-slate-900">المعلومات المالية</h2>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">المعلومات المالية</h2>
             </div>
 
             <div className="space-y-8">
               <div className="space-y-2">
-                <label className="text-sm font-bold text-slate-700">الدخل الشهري</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">الدخل الشهري</label>
                 <div className="relative">
-                  <DollarSign className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                  <DollarSign className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={18} />
                   <input
                     required
                     type="text"
-                    className="w-full pr-12 pl-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                    className="w-full pr-12 pl-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                     placeholder="ر.س"
                     value={formData.monthlyIncome}
                     onChange={(e) => setFormData({ ...formData, monthlyIncome: e.target.value })}
@@ -324,7 +324,7 @@ export default function OwnYourProperty() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  <label className="text-sm font-bold text-slate-700 block">هل لديك التزامات مالية؟</label>
+                  <label className="text-sm font-bold text-slate-700 dark:text-slate-300 block">هل لديك التزامات مالية؟</label>
                   <div className="flex gap-4">
                     {[true, false].map((val) => (
                       <button
@@ -334,8 +334,8 @@ export default function OwnYourProperty() {
                         className={cn(
                           "flex-1 py-3 rounded-xl font-bold border transition-all",
                           formData.hasObligations === val
-                            ? "bg-slate-900 border-slate-900 text-white"
-                            : "bg-slate-50 border-slate-100 text-slate-600"
+                            ? "bg-slate-900 dark:bg-indigo-600 border-slate-900 dark:border-indigo-600 text-white"
+                            : "bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600"
                         )}
                       >
                         {val ? 'نعم' : 'لا'}
@@ -352,7 +352,7 @@ export default function OwnYourProperty() {
                       >
                         <input
                           type="text"
-                          className="w-full px-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                          className="w-full px-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                           placeholder="مقدار الالتزامات الشهرية"
                           value={formData.obligationAmount}
                           onChange={(e) => setFormData({ ...formData, obligationAmount: e.target.value })}
@@ -363,7 +363,7 @@ export default function OwnYourProperty() {
                 </div>
 
                 <div className="space-y-4">
-                  <label className="text-sm font-bold text-slate-700 block">هل يتوفر لديك دفعة أولى؟</label>
+                  <label className="text-sm font-bold text-slate-700 dark:text-slate-300 block">هل يتوفر لديك دفعة أولى؟</label>
                   <div className="flex gap-4">
                     {[true, false].map((val) => (
                       <button
@@ -373,8 +373,8 @@ export default function OwnYourProperty() {
                         className={cn(
                           "flex-1 py-3 rounded-xl font-bold border transition-all",
                           formData.hasDownPayment === val
-                            ? "bg-slate-900 border-slate-900 text-white"
-                            : "bg-slate-50 border-slate-100 text-slate-600"
+                            ? "bg-slate-900 dark:bg-indigo-600 border-slate-900 dark:border-indigo-600 text-white"
+                            : "bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600"
                         )}
                       >
                         {val ? 'نعم' : 'لا'}
@@ -391,7 +391,7 @@ export default function OwnYourProperty() {
                       >
                         <input
                           type="text"
-                          className="w-full px-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                          className="w-full px-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                           placeholder="مقدار الدفعة المتوفرة"
                           value={formData.downPaymentAmount}
                           onChange={(e) => setFormData({ ...formData, downPaymentAmount: e.target.value })}
@@ -403,7 +403,7 @@ export default function OwnYourProperty() {
               </div>
 
               <div className="space-y-4">
-                <label className="text-sm font-bold text-slate-700 block">هل لديك متضامنين؟</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300 block">هل لديك متضامنين؟</label>
                 <div className="flex gap-4 max-w-md">
                   {[true, false].map((val) => (
                     <button
@@ -413,8 +413,8 @@ export default function OwnYourProperty() {
                       className={cn(
                         "flex-1 py-3 rounded-xl font-bold border transition-all",
                         formData.hasJointApplicants === val
-                          ? "bg-indigo-600 border-indigo-600 text-white"
-                          : "bg-slate-50 border-slate-100 text-slate-600"
+                          ? "bg-indigo-600 dark:bg-indigo-500 border-indigo-600 dark:border-indigo-500 text-white"
+                          : "bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600"
                       )}
                     >
                       {val ? 'نعم' : 'لا'}
@@ -429,10 +429,10 @@ export default function OwnYourProperty() {
                       exit={{ opacity: 0, height: 0 }}
                       className="overflow-hidden space-y-2"
                     >
-                      <label className="text-sm font-bold text-slate-700">دخل المتضامن الشهري</label>
+                      <label className="text-sm font-bold text-slate-700 dark:text-slate-300">دخل المتضامن الشهري</label>
                       <input
                         type="text"
-                        className="w-full px-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                        className="w-full px-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all dark:text-white"
                         placeholder="ر.س"
                         value={formData.jointApplicantIncome}
                         onChange={(e) => setFormData({ ...formData, jointApplicantIncome: e.target.value })}
@@ -445,12 +445,12 @@ export default function OwnYourProperty() {
           </section>
 
           {/* Contact Method */}
-          <section className="bg-white p-8 md:p-10 rounded-[32px] shadow-xl shadow-slate-200/50 border border-slate-100">
+          <section className="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-[32px] shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 transition-colors">
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center">
                 <MessageSquare size={20} />
               </div>
-              <h2 className="text-2xl font-bold text-slate-900">طريقة الاتصال المفضلة</h2>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">طريقة الاتصال المفضلة</h2>
             </div>
 
             <div className="flex gap-4">
@@ -462,8 +462,8 @@ export default function OwnYourProperty() {
                   className={cn(
                     "flex-1 py-4 rounded-2xl font-bold border transition-all flex items-center justify-center gap-2",
                     formData.contactMethod === method
-                      ? "bg-slate-900 border-slate-900 text-white shadow-lg"
-                      : "bg-slate-50 border-slate-100 text-slate-600 hover:border-slate-300"
+                      ? "bg-slate-900 dark:bg-indigo-600 border-slate-900 dark:border-indigo-600 text-white shadow-lg dark:shadow-none"
+                      : "bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600"
                   )}
                 >
                   {method === 'الهاتف' ? <Phone size={18} /> : <MessageSquare size={18} />}
@@ -475,7 +475,7 @@ export default function OwnYourProperty() {
 
           <button
             type="submit"
-            className="w-full py-6 bg-indigo-600 text-white rounded-[24px] font-black text-xl hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-200 flex items-center justify-center gap-3"
+            className="w-full py-6 bg-indigo-600 dark:bg-indigo-500 text-white rounded-[24px] font-black text-xl hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all shadow-2xl shadow-indigo-200 dark:shadow-none flex items-center justify-center gap-3"
           >
             <span>إرسال طلب التملك</span>
             <ArrowRight size={24} />
