@@ -81,6 +81,12 @@ export default function Dashboard() {
   const [banner5Visible, setBanner5Visible] = useState(false);
   const [banner5Image, setBanner5Image] = useState('');
   const [bannerSaving, setBannerSaving] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const showSuccess = (msg: string) => {
+    setSuccessMessage(msg);
+    setTimeout(() => setSuccessMessage(''), 3000);
+  };
 
   useEffect(() => {
     // Always fetch properties (public)
@@ -233,6 +239,7 @@ export default function Dashboard() {
         setIsAddingProperty(false);
         setPropertyImages([]);
         setNewImageUrl('');
+        showSuccess(editingProperty ? 'تم تحديث العقار بنجاح' : 'تم إضافة العقار بنجاح');
       }
     } catch (error) {
       console.error('Error saving property:', error);
@@ -277,6 +284,7 @@ export default function Dashboard() {
     } finally {
       setUploading(false);
       e.target.value = '';
+      if (files.length > 0) showSuccess('تم رفع الصور بنجاح');
     }
   };
 
@@ -317,7 +325,10 @@ export default function Dashboard() {
           method: 'DELETE',
           headers: secureHeaders(),
         });
-        if (response.ok) await fetchProperties();
+        if (response.ok) {
+          await fetchProperties();
+          showSuccess('تم حذف العقار بنجاح');
+        }
       } catch (error) {
         console.error('Error deleting property:', error);
       }
@@ -389,6 +400,32 @@ export default function Dashboard() {
       </div>
     );
   }
+
+  const handleCopySubmission = (sub: Submission) => {
+    const text = `
+ملخص طلب تملك:
+الاسم: ${sub.name}
+الهاتف: ${sub.phone}
+البريد: ${sub.email}
+الجهة: ${sub.employer} - ${sub.job_title}
+العمر: ${sub.age}
+نوع العقار: ${sub.property_type}
+قيمة العقار: ${sub.property_value.toLocaleString()} ر.س
+المدينة: ${sub.city} - ${sub.district}
+المساحة: ${sub.area} م²
+الدخل الشهري: ${sub.monthly_income.toLocaleString()} ر.س
+الالتزامات: ${sub.has_obligations ? sub.obligation_amount.toLocaleString() : 'لا يوجد'}
+الدفعة الأولى: ${sub.has_down_payment ? sub.down_payment_amount.toLocaleString() : 'لا يتوفر'}
+    `.trim();
+    navigator.clipboard.writeText(text);
+    showSuccess('تم نسخ بيانات الطلب');
+  };
+
+  const handleWhatsAppSubmission = (sub: Submission) => {
+    const text = `*طلب تملك جديد*%0A*الاسم:* ${sub.name}%0A*الهاتف:* ${sub.phone}%0A*نوع العقار:* ${sub.property_type}%0A*القيمة:* ${sub.property_value.toLocaleString()} ر.س%0A*المدينة:* ${sub.city}%0A*الحي:* ${sub.district}`;
+    const url = `https://wa.me/${sub.phone.startsWith('0') ? '966' + sub.phone.substring(1) : sub.phone}?text=${text}`;
+    window.open(url, '_blank');
+  };
 
   if (loading) {
     return (
@@ -546,7 +583,7 @@ export default function Dashboard() {
 
                     <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-4 transition-colors">
                       <button
-                        // ... clipboard logic ...
+                        onClick={() => handleCopySubmission(sub)}
                         className="flex items-center gap-2 px-6 py-3 bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-300 rounded-2xl font-bold hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-all text-sm transition-colors"
                       >
                         <ClipboardCopy size={16} />
@@ -554,7 +591,7 @@ export default function Dashboard() {
                       </button>
 
                       <button
-                        // ... whatsapp logic ...
+                        onClick={() => handleWhatsAppSubmission(sub)}
                         className="flex items-center gap-2 px-6 py-3 bg-emerald-50 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-300 rounded-2xl font-bold hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-all text-sm transition-colors"
                       >
                         <MessageSquare size={16} />
@@ -719,6 +756,20 @@ export default function Dashboard() {
             </div>
           </div>
         )}
+
+        <AnimatePresence>
+          {successMessage && (
+            <motion.div
+              initial={{ opacity: 0, y: 50, x: '-50%' }}
+              animate={{ opacity: 1, y: 0, x: '-50%' }}
+              exit={{ opacity: 0, y: 50, x: '-50%' }}
+              className="fixed bottom-8 left-1/2 z-[100] px-8 py-4 bg-slate-900 text-white rounded-2xl shadow-2xl font-bold flex items-center gap-3 border border-slate-700"
+            >
+              <CheckCircle2 size={20} className="text-emerald-500" />
+              {successMessage}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Property Form Modal */}

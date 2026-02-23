@@ -10,6 +10,29 @@ interface PropertyDetailProps {
 }
 
 export const PropertyDetail: React.FC<PropertyDetailProps> = ({ property, onClose, onInterest }) => {
+  const [activeImage, setActiveImage] = React.useState(0);
+  const propertyImages = (property as any).images && (property as any).images.length > 0
+    ? (property as any).images
+    : [property.image];
+
+  const handleShare = async () => {
+    const shareData = {
+      title: `شعار العقارية - ${property.title}`,
+      text: `شاهد هذا العقار لقد أعجبني: ${property.title}\n${property.location}`,
+      url: window.location.origin + `/?id=${property.id}`,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(shareData.url);
+        alert('تم نسخ رابط المشاركة');
+      }
+    } catch (err) {
+      console.error('Error sharing:', err);
+    }
+  };
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -33,26 +56,51 @@ export const PropertyDetail: React.FC<PropertyDetailProps> = ({ property, onClos
         </button>
 
         {/* Image Section */}
-        <div className="w-full md:w-1/2 h-64 md:h-auto relative">
-          <img
-            src={property.image}
-            alt={property.title}
-            className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute bottom-6 right-6 flex gap-2">
-            <button className="p-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm rounded-xl text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 transition-all border dark:border-slate-700">
-              <Share2 size={20} />
-            </button>
+        <div className="w-full md:w-1/2 flex flex-col bg-slate-100 dark:bg-slate-800">
+          <div className="relative flex-grow min-h-[300px] md:min-h-0">
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={activeImage}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                src={propertyImages[activeImage]}
+                alt={property.title}
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+            </AnimatePresence>
+            <div className="absolute bottom-6 right-6 flex gap-2">
+              <button
+                onClick={handleShare}
+                className="p-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm rounded-xl text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 transition-all border dark:border-slate-700 shadow-lg"
+              >
+                <Share2 size={20} />
+              </button>
+            </div>
           </div>
+
+          {propertyImages.length > 1 && (
+            <div className="p-4 flex gap-3 overflow-x-auto no-scrollbar bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border-t dark:border-slate-800">
+              {propertyImages.map((img: string, idx: number) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveImage(idx)}
+                  className={`relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 transition-all ${activeImage === idx ? 'ring-4 ring-indigo-500 scale-95' : 'opacity-60 hover:opacity-100'}`}
+                >
+                  <img src={img} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Content Section */}
         <div className="w-full md:w-1/2 overflow-y-auto p-8 md:p-10 bg-white dark:bg-slate-900">
           <div className="flex items-center gap-2 mb-4">
             <span className={`px-4 py-1.5 rounded-full text-sm font-bold ${property.type === 'sale'
-                ? 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300'
-                : 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300'
+              ? 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300'
+              : 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300'
               }`}>
               {property.type === 'sale' ? 'للبيع' : 'للإيجار'}
             </span>
