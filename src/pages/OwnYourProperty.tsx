@@ -178,7 +178,7 @@ export default function OwnYourProperty() {
                   <Calendar className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                   <input
                     required
-                    type="number"
+                    type="text"
                     className="w-full pr-12 pl-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                     placeholder="أدخل عمرك"
                     value={formData.age}
@@ -241,7 +241,7 @@ export default function OwnYourProperty() {
                   <DollarSign className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                   <input
                     required
-                    type="number"
+                    type="text"
                     className="w-full pr-12 pl-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                     placeholder="ر.س"
                     value={formData.propertyValue}
@@ -256,7 +256,7 @@ export default function OwnYourProperty() {
                   <Maximize className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                   <input
                     required
-                    type="number"
+                    type="text"
                     className="w-full pr-12 pl-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                     placeholder="م²"
                     value={formData.area}
@@ -313,7 +313,7 @@ export default function OwnYourProperty() {
                   <DollarSign className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                   <input
                     required
-                    type="number"
+                    type="text"
                     className="w-full pr-12 pl-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                     placeholder="ر.س"
                     value={formData.monthlyIncome}
@@ -351,7 +351,7 @@ export default function OwnYourProperty() {
                         className="overflow-hidden"
                       >
                         <input
-                          type="number"
+                          type="text"
                           className="w-full px-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                           placeholder="مقدار الالتزامات الشهرية"
                           value={formData.obligationAmount}
@@ -390,7 +390,7 @@ export default function OwnYourProperty() {
                         className="overflow-hidden"
                       >
                         <input
-                          type="number"
+                          type="text"
                           className="w-full px-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                           placeholder="مقدار الدفعة المتوفرة"
                           value={formData.downPaymentAmount}
@@ -431,7 +431,7 @@ export default function OwnYourProperty() {
                     >
                       <label className="text-sm font-bold text-slate-700">دخل المتضامن الشهري</label>
                       <input
-                        type="number"
+                        type="text"
                         className="w-full px-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                         placeholder="ر.س"
                         value={formData.jointApplicantIncome}

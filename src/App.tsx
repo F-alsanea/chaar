@@ -168,6 +168,17 @@ function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [allProperties, setAllProperties] = useState<Property[]>(MOCK_PROPERTIES);
   const [searchParams] = useSearchParams();
+  const propertiesRef = React.useRef<HTMLDivElement>(null);
+
+  // Scroll to properties if filter is applied via URL
+  useEffect(() => {
+    if (searchParams.get('type') || searchParams.get('category')) {
+      const element = document.getElementById('properties-grid');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [searchParams]);
 
   // Read category from URL (e.g. /?category=apartment)
   useEffect(() => {
@@ -396,7 +407,7 @@ function HomePage() {
       </section>
 
       {/* Featured Properties */}
-      <section className="py-24 bg-white">
+      <section id="properties-grid" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>

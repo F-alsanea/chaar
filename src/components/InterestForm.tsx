@@ -156,7 +156,7 @@ export const InterestForm: React.FC<InterestFormProps> = ({ property, onClose })
                       <label className="block text-sm font-bold text-slate-700 mb-2">العمر</label>
                       <input
                         required
-                        type="number"
+                        type="text"
                         className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                         placeholder="أدخل عمرك"
                         value={formData.age}
@@ -198,7 +198,7 @@ export const InterestForm: React.FC<InterestFormProps> = ({ property, onClose })
                         <label className="block text-sm font-bold text-slate-700 mb-2">الدخل الشهري</label>
                         <input
                           required
-                          type="number"
+                          type="text"
                           className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                           placeholder="ر.س"
                           value={formData.income}
@@ -232,7 +232,7 @@ export const InterestForm: React.FC<InterestFormProps> = ({ property, onClose })
                         <label className="block text-sm font-bold text-slate-700 mb-2">مقدار الالتزامات الشهرية</label>
                         <input
                           required
-                          type="number"
+                          type="text"
                           className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                           placeholder="ر.س"
                           value={formData.commitment_amount}
@@ -267,7 +267,7 @@ export const InterestForm: React.FC<InterestFormProps> = ({ property, onClose })
                           <label className="block text-sm font-bold text-slate-700 mb-2">مقدار الدفعة المتوفرة</label>
                           <input
                             required
-                            type="number"
+                            type="text"
                             className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                             placeholder="ر.س"
                             value={formData.downpayment_amount}
@@ -303,7 +303,7 @@ export const InterestForm: React.FC<InterestFormProps> = ({ property, onClose })
                           <label className="block text-sm font-bold text-slate-700 mb-2">مقدار دخل المتضامن</label>
                           <input
                             required
-                            type="number"
+                            type="text"
                             className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                             placeholder="ر.س"
                             value={formData.cosigner_income}
