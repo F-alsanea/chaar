@@ -11,16 +11,16 @@ export default function AboutUs() {
           <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-600 blur-[120px] rounded-full translate-y-1/2 -translate-x-1/2" />
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl md:text-6xl font-black mb-8"
           >
             من نحن
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -77,10 +77,10 @@ export default function AboutUs() {
               className="relative"
             >
               <div className="aspect-[4/5] rounded-[60px] overflow-hidden shadow-2xl">
-                <img 
-                  src="https://i.ibb.co/6jH1zt6/IMG-5231.png" 
-                  alt="About Us" 
-                  className="w-full h-full object-contain bg-slate-50 p-12"
+                <img
+                  src="/favicon.png"
+                  alt="About Us"
+                  className="w-full h-full object-contain"
                   referrerPolicy="no-referrer"
                 />
               </div>

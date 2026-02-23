@@ -713,9 +713,9 @@ function Layout({ children }: { children: React.ReactNode }) {
             <Link to="/" className="flex items-center gap-3">
               <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-slate-200 overflow-hidden">
                 <img
-                  src="https://i.ibb.co/6jH1zt6/IMG-5231.png"
+                  src="/favicon.png"
                   alt="Logo"
-                  className="w-full h-full object-contain scale-110"
+                  className="w-full h-full object-contain"
                   referrerPolicy="no-referrer"
                 />
               </div>
