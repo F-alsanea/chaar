@@ -544,7 +544,7 @@ export default function Dashboard() {
                       </div>
                     </div>
 
-                    <div className="mt-6 pt-4 border-t border-slate-100">
+                    <div className="mt-6 pt-4 border-t border-slate-100 flex flex-wrap gap-4">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -577,6 +577,19 @@ export default function Dashboard() {
                       >
                         <ClipboardCopy size={16} />
                         نسخ بيانات الطلب
+                      </button>
+
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const message = encodeURIComponent(`مرحباً أ/ ${sub.name}\nمعك "شعار العقارية"، بخصوص طلبك لـ ${sub.property_type || 'تملك عقار'} في حي ${sub.district || ''} بمدينة ${sub.city || ''}.. كيف يمكننا خدمتكم؟`);
+                          const phone = sub.phone.startsWith('0') ? '966' + sub.phone.substring(1) : sub.phone.startsWith('966') ? sub.phone : '966' + sub.phone;
+                          window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+                        }}
+                        className="flex items-center gap-2 px-6 py-3 bg-emerald-50 text-emerald-600 rounded-2xl font-bold hover:bg-emerald-100 transition-all text-sm"
+                      >
+                        <MessageSquare size={16} />
+                        إرسال رسالة واتساب
                       </button>
                     </div>
                   </motion.div>
