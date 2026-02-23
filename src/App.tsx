@@ -181,10 +181,10 @@ function HomePage() {
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      }, 150);
+      }, 300); // Slightly longer delay for stability
       return () => clearTimeout(timer);
     }
-  }, [searchParams]);
+  }, [searchParams.get('type'), searchParams.get('category')]); // Listen specifically to these params
 
   // Read category from URL (e.g. /?category=apartment)
   useEffect(() => {
@@ -653,7 +653,7 @@ function HomePage() {
               className="relative overflow-hidden rounded-[40px] shadow-2xl border border-slate-100 h-[450px] bg-slate-50"
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3706.776634568808!2d39.1118671!3d21.7114631!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3d972776c59d9%3A0xe54d6ea61bface66!2z2LTYudCw2LEg2KfZhNi52YLZitCw2LHZitip!5e0!3m2!1sar!2ssa!4v1700000000000!5m2!1sar!2ssa"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14828.694600109506!2d39.1118671!3d21.7114631!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3d972776c59d9%3A0xe54d6ea61bface66!2z2LTYudCw2LEg2KfZhNi52YLZitCw2LHZitip!5e0!3m2!1sar!2ssa!4v1708684000000!5m2!1sar!2ssa"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -727,8 +727,8 @@ function Layout({ children }: { children: React.ReactNode }) {
               <Link to="/" className={cn("font-medium transition-colors", location.pathname === '/' ? "text-indigo-600" : "text-slate-600 hover:text-indigo-600")}>الرئيسية</Link>
               <Link to="/about-us" className={cn("font-medium transition-colors", location.pathname === '/about-us' ? "text-indigo-600" : "text-slate-600 hover:text-indigo-600")}>من نحن</Link>
               <Link to="/own-property" className={cn("font-medium transition-colors", location.pathname === '/own-property' ? "text-indigo-600" : "text-slate-600 hover:text-indigo-600")}>تملك عقارك</Link>
-              <a href="#" className="text-slate-600 hover:text-indigo-600 font-medium transition-colors">عقارات للبيع</a>
-              <a href="#" className="text-slate-600 hover:text-indigo-600 font-medium transition-colors">عقارات للإيجار</a>
+              <Link to="/?type=sale" className="text-slate-600 hover:text-indigo-600 font-medium transition-colors">عقارات للبيع</Link>
+              <Link to="/?type=rent" className="text-slate-600 hover:text-indigo-600 font-medium transition-colors">عقارات للإيجار</Link>
               <a
                 href={`https://wa.me/966544137950?text=${encodeURIComponent('السلام عليكم حاب اعرض عقاري عندكم')}`}
                 target="_blank"
@@ -762,8 +762,8 @@ function Layout({ children }: { children: React.ReactNode }) {
                 <Link to="/" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium text-slate-900">الرئيسية</Link>
                 <Link to="/about-us" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium text-slate-900">من نحن</Link>
                 <Link to="/own-property" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium text-slate-900">تملك عقارك</Link>
-                <a href="#" className="block text-lg font-medium text-slate-900">عقارات للبيع</a>
-                <a href="#" className="block text-lg font-medium text-slate-900">عقارات للإيجار</a>
+                <Link to="/?type=sale" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium text-slate-900">عقارات للبيع</Link>
+                <Link to="/?type=rent" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium text-slate-900">عقارات للإيجار</Link>
                 <a
                   href={`https://wa.me/966544137950?text=${encodeURIComponent('السلام عليكم حاب اعرض عقاري عندكم')}`}
                   target="_blank"
