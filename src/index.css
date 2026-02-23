@@ -6,17 +6,6 @@
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
 
-  --color-indigo-50: #f9fafb;
-  --color-indigo-100: #f3f4f6;
-  --color-indigo-200: #e5e7eb;
-  --color-indigo-300: #d1d5db;
-  --color-indigo-400: #9ca3af;
-  --color-indigo-500: #6b7280;
-  --color-indigo-600: #111827;
-  --color-indigo-700: #030712;
-  --color-indigo-800: #000000;
-  --color-indigo-900: #000000;
-
   /* Dark Mode specific colors if needed as variables */
   --color-dark-bg: #0f172a;
   /* slate-900 */

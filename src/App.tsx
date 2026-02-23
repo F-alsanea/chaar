@@ -734,7 +734,7 @@ function Layout({ children }: { children: React.ReactNode }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <Link to="/" className="flex items-center gap-3">
-              <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center shadow-lg shadow-slate-200 dark:shadow-none overflow-hidden">
+              <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center shadow-sm dark:shadow-none overflow-hidden">
                 <img
                   src="/favicon.png"
                   alt="Logo"
@@ -765,7 +765,7 @@ function Layout({ children }: { children: React.ReactNode }) {
                 href={`https://wa.me/966544137950?text=${encodeURIComponent('السلام عليكم حاب اعرض عقاري عندكم')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-2.5 bg-slate-900 dark:bg-indigo-600 text-white rounded-xl font-bold hover:bg-slate-800 dark:hover:bg-indigo-700 transition-all"
+                className="px-6 py-2.5 bg-indigo-600 dark:bg-indigo-500 text-white rounded-xl font-bold hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all shadow-md shadow-indigo-200 dark:shadow-none"
               >
                 أضف عقارك
               </a>
