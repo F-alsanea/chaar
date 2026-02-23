@@ -648,14 +648,17 @@ function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-4">موقعنا</h2>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="relative overflow-hidden rounded-[40px] shadow-2xl dark:shadow-slate-950/50 border border-slate-100 dark:border-slate-800 h-[450px] bg-slate-50 dark:bg-slate-900 transition-colors"
-            >
+            <p className="text-slate-500 dark:text-slate-400">طريق الأمير نايف، ابحر الشمالية، حي الفردوس، جدة 23818</p>
+          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative overflow-hidden rounded-[40px] shadow-2xl dark:shadow-slate-950/50 border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 transition-colors"
+          >
+            <div className="h-[450px]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14828.694600109506!2d39.1118671!3d21.7114631!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3d972776c59d9%3A0xe54d6ea61bface66!2z2LTYudCw2LEg2KfZhNi52YLZitCw2LHZitip!5e0!3m2!1sar!2ssa!4v1708684000000!5m2!1sar!2ssa"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3710.7394600109506!2d39.1118671!3d21.7114631!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3d972776c59d9%3A0xe54d6ea61bface66!2z2LTYudCn2LEg2KfZhNi52YLYp9ix2YrYqQ!5e0!3m2!1sar!2ssa!4v1708684000000!5m2!1sar!2ssa"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -663,23 +666,27 @@ function HomePage() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="موقع شعار العقارية"
-                className="relative z-0 dark:invert-[0.85] dark:hue-rotate-180 transition-all grayscale-[0.2] dark:grayscale-[0.5]"
+                className="dark:invert-[0.85] dark:hue-rotate-180 transition-all"
               ></iframe>
+            </div>
 
-              {/* Link Overlay */}
+            {/* Button below map */}
+            <div className="flex items-center justify-between p-5 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+                <MapPin size={20} className="text-indigo-500" />
+                <span className="font-medium text-sm">شعار العقارية - جدة</span>
+              </div>
               <a
                 href="https://maps.app.goo.gl/KLYVVN1gQCJKqrxk8"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute inset-0 z-10 flex items-end justify-end p-6 bg-transparent group"
+                className="px-6 py-3 bg-indigo-600 dark:bg-indigo-500 text-white rounded-2xl font-bold hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all shadow-lg shadow-indigo-200 dark:shadow-none flex items-center gap-2"
               >
-                <div className="bg-white dark:bg-slate-800 px-6 py-3 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 font-bold text-slate-900 dark:text-white group-hover:bg-indigo-600 dark:group-hover:bg-indigo-500 group-hover:text-white transition-all flex items-center gap-2">
-                  <MapPin size={20} />
-                  <span>فتح في خرائط جوجل</span>
-                </div>
+                <MapPin size={18} />
+                <span>فتح في خرائط جوجل</span>
               </a>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
