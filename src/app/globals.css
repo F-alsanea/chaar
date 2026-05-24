@@ -1,0 +1,304 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Thmanyah Sans Font */
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyah/thmanyahsans-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyah/thmanyahsans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyah/thmanyahsans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyah/thmanyahsans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyah/thmanyahsans-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Thmanyah Serif Display Font - for headings */
+@font-face {
+  font-family: 'Thmanyah Serif Display';
+  src: url('/fonts/thmanyah/thmanyahserifdisplay-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Serif Display';
+  src: url('/fonts/thmanyah/thmanyahserifdisplay-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Serif Display';
+  src: url('/fonts/thmanyah/thmanyahserifdisplay-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Serif Display';
+  src: url('/fonts/thmanyah/thmanyahserifdisplay-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Serif Display';
+  src: url('/fonts/thmanyah/thmanyahserifdisplay-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Thmanyah Serif Text Font - for body text */
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyah/thmanyahseriftext-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyah/thmanyahseriftext-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyah/thmanyahseriftext-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyah/thmanyahseriftext-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyah/thmanyahseriftext-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-sans: 'Thmanyah Sans', sans-serif;
+  --font-serif-display: 'Thmanyah Serif Display', serif;
+  --font-serif-text: 'Thmanyah Serif Text', serif;
+  --color-cream: #f5f0e8;
+  --color-cream-dark: #e8e1d5;
+  --color-teal: #2c5f71;
+  --color-teal-dark: #1e4a5a;
+  --color-teal-light: #3a7a8f;
+  --color-gold: #c9a55c;
+  --color-text: #333333;
+  --color-text-light: #666666;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-cream);
+  color: var(--color-text);
+  direction: rtl;
+  text-align: right;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif-display);
+}
+
+@layer base {
+  :root {
+    --background: 40 30% 94%;
+    --foreground: 0 0% 20%;
+    --card: 40 30% 96%;
+    --card-foreground: 0 0% 20%;
+    --popover: 40 30% 96%;
+    --popover-foreground: 0 0% 20%;
+    --primary: 195 44% 31%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 40 25% 88%;
+    --secondary-foreground: 0 0% 20%;
+    --muted: 40 20% 90%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 40 45% 57%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 40 20% 85%;
+    --input: 40 20% 85%;
+    --ring: 195 44% 31%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-teal);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-teal-dark);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Button styles */
+.btn-primary {
+  @apply bg-[#2c5f71] text-white px-8 py-3 rounded-sm font-medium transition-all duration-300;
+}
+
+.btn-primary:hover {
+  @apply bg-[#1e4a5a];
+}
+
+/* Section styles */
+.section-title {
+  @apply text-3xl md:text-4xl font-bold text-[#2c5f71] mb-8 text-center;
+  font-family: var(--font-serif-display);
+}
+
+/* Property card styles */
+.property-card {
+  @apply bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300;
+}
+
+.property-card:hover {
+  @apply shadow-xl;
+  transform: translateY(-3px);
+}
+
+/* RTL specific styles */
+[dir="rtl"] .swiper-button-next {
+  right: auto;
+  left: 10px;
+}
+
+[dir="rtl"] .swiper-button-prev {
+  left: auto;
+  right: 10px;
+}
