@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  distDir: 'dist',
   allowedDevOrigins: ["*.preview.same-app.com"],
   images: {
     unoptimized: true,
